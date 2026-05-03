@@ -204,6 +204,7 @@ enum InvitationStatus {
 enum ReviewStatus {
   APPROVED
   REJECTED
+  PENDING
 }
 
 enum BlogStatus {
@@ -2730,7 +2731,7 @@ router2.get("/category-events", EventController.getAllEvents);
 router2.get("/my-events", Auth_default([Role.USER, Role.ADMIN, Role.MANAGER]), EventController.getEventsByRoleController);
 router2.get("/events/paidandfree", EventController.getPaidAndFreeEvent);
 router2.get("/event/:id", EventController.getSingleEvent);
-router2.put("/event/:id", Auth_default([Role.ADMIN, Role.USER]), validateRequest(UpdateEventSchema), EventController.updateEvent);
+router2.put("/event/:id", Auth_default([Role.ADMIN, Role.USER, Role.MANAGER]), validateRequest(UpdateEventSchema), EventController.updateEvent);
 router2.delete("/event/:id", Auth_default([Role.ADMIN, Role.USER, Role.MANAGER]), EventController.DeletedEvent);
 var EventRouters = router2;
 
@@ -3996,7 +3997,7 @@ router5.get(
 router5.post("/event/:id/review", validateRequest(createReviewsData), Auth_default([Role.USER]), ReviewsControllers.CreateReviews);
 router5.put("/review/:reviewid", Auth_default([Role.USER]), validateRequest(updateReviewsData), ReviewsControllers.updateReview);
 router5.delete("/review/:reviewid", Auth_default([Role.ADMIN, Role.USER, Role.MANAGER]), ReviewsControllers.deleteReview);
-router5.put("/review/:reviewid/moderate", Auth_default([Role.MANAGER]), ReviewsControllers.moderateReview);
+router5.put("/review/:reviewid/moderate", Auth_default([Role.MANAGER, Role.ADMIN]), ReviewsControllers.moderateReview);
 var ReviewsRouters = router5;
 
 // src/app/modules/stats/stats.route.ts
@@ -4030,7 +4031,10 @@ init_prisma();
 var getDashboardStatsData = async (user) => {
   let statsData;
   switch (user.role) {
-    case (Role.ADMIN, Role.MANAGER):
+    case Role.ADMIN:
+      statsData = getAdminDashboardStats();
+      break;
+    case Role.MANAGER:
       statsData = getAdminDashboardStats();
       break;
     case Role.USER:
@@ -4050,13 +4054,25 @@ var getAdminDashboardStats = async () => {
       prisma.invitation.count(),
       prisma.payment.count()
     ]);
-    const [eventCount, userCount, participantCount, invitationCount, paymentCount] = counts;
+    const [
+      eventCount,
+      userCount,
+      participantCount,
+      invitationCount,
+      paymentCount
+    ] = counts;
     const revenueResult = await prisma.payment.aggregate({
       _sum: { amount: true },
       where: { status: PaymentStatus.PAID }
     });
     const totalRevenue = revenueResult._sum.amount ?? 0;
-    const [upcomingEvents, completedEvents, cancelledEvents, draftEvetn, ongoingEvent] = await Promise.all([
+    const [
+      upcomingEvents,
+      completedEvents,
+      cancelledEvents,
+      draftEvetn,
+      ongoingEvent
+    ] = await Promise.all([
       prisma.event.count({ where: { status: "UPCOMING" } }),
       prisma.event.count({ where: { status: "COMPLETED" } }),
       prisma.event.count({ where: { status: "CANCELLED" } }),
@@ -4175,16 +4191,36 @@ var getUserDashboardStats = async (userId) => {
       where: { userId, status: PaymentStatus.PAID }
     });
     const totalRevenue = revenueResult._sum.amount ?? 0;
-    const [upcomingEvents, completedEvents, cancelledEvents, draftEvent, ongoingEvent] = await Promise.all([
-      prisma.participant.count({ where: { userId, event: { status: "UPCOMING" } } }),
-      prisma.participant.count({ where: { userId, event: { status: "COMPLETED" } } }),
-      prisma.participant.count({ where: { userId, event: { status: "CANCELLED" } } }),
-      prisma.participant.count({ where: { userId, event: { status: "DRAFT" } } }),
-      prisma.participant.count({ where: { userId, event: { status: "ONGOING" } } })
+    const [
+      upcomingEvents,
+      completedEvents,
+      cancelledEvents,
+      draftEvent,
+      ongoingEvent
+    ] = await Promise.all([
+      prisma.participant.count({
+        where: { userId, event: { status: "UPCOMING" } }
+      }),
+      prisma.participant.count({
+        where: { userId, event: { status: "COMPLETED" } }
+      }),
+      prisma.participant.count({
+        where: { userId, event: { status: "CANCELLED" } }
+      }),
+      prisma.participant.count({
+        where: { userId, event: { status: "DRAFT" } }
+      }),
+      prisma.participant.count({
+        where: { userId, event: { status: "ONGOING" } }
+      })
     ]);
     const [privateEvent, publicEvent] = await Promise.all([
-      prisma.event.count({ where: { organizerId: userId, visibility: "PRIVATE" } }),
-      prisma.event.count({ where: { organizerId: userId, visibility: "PUBLIC" } })
+      prisma.event.count({
+        where: { organizerId: userId, visibility: "PRIVATE" }
+      }),
+      prisma.event.count({
+        where: { organizerId: userId, visibility: "PUBLIC" }
+      })
     ]);
     const [freeEvent, paidEvent] = await Promise.all([
       prisma.event.count({ where: { organizerId: userId, priceType: "FREE" } }),
@@ -4194,7 +4230,20 @@ var getUserDashboardStats = async (userId) => {
       where: { userId, status: PaymentStatus.PAID },
       select: { amount: true, createdAt: true }
     });
-    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ];
     const monthlyRevenue = {};
     payments.forEach((payment) => {
       const month = payment.createdAt.getMonth();
@@ -6710,7 +6759,7 @@ var createcategoryData = z10.object({
 var UpdatecategoryData = z10.object({
   name: z10.string().optional(),
   image: z10.any().optional()
-}).strict();
+});
 
 // src/app/modules/category/category.route.ts
 init_enums();

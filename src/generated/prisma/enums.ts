@@ -85,7 +85,8 @@ export type InvitationStatus = (typeof InvitationStatus)[keyof typeof Invitation
 
 export const ReviewStatus = {
   APPROVED: 'APPROVED',
-  REJECTED: 'REJECTED'
+  REJECTED: 'REJECTED',
+  PENDING: 'PENDING'
 } as const
 
 export type ReviewStatus = (typeof ReviewStatus)[keyof typeof ReviewStatus]
