@@ -4,8 +4,7 @@ import { ICreateCategory, IUpdateCategory } from "./category.interface";
 import AppError from "../../errorHelper/AppError";
 import status from "http-status";
 import { parseDateForPrisma } from "../../utils/parseDate";
-import { CategoryWhereInput, EventWhereInput } from "../../../generated/prisma/models";
-import { EventType } from "../../../generated/prisma/enums";
+import { CategoryWhereInput, ProductWhereInput } from "../../../generated/prisma/models";
 const CreateCategory = async (data: ICreateCategory, email: string) => {
   if(!data.image){
     throw new AppError(404, "Image is required");
@@ -86,7 +85,7 @@ const getCategory = async (
       AND:andConditions
     },
     include: {
-      event: true,
+      products: true,
       user: true,
     },
     orderBy: { name: "desc" },
@@ -115,7 +114,7 @@ const SingleCategory = async (
 
 ) => {
 
-  const andConditions: EventWhereInput | EventWhereInput[] | undefined = [];
+  const andConditions:ProductWhereInput | ProductWhereInput[] | undefined = [];
 
 
   if (query) {
@@ -182,29 +181,18 @@ const SingleCategory = async (
 
   if (query?.fee) {
     andConditions.push({
-      fee: {
+      price: {
         gte: 1,
         lte: Number(query.fee),
       },
     });
   }
 
-  if (query?.visibility) {
-    andConditions.push({
-      visibility: query.visibility as EventType,
-    });
-  }
-
-  if (query?.priceType) {
-    andConditions.push({
-      priceType: query.priceType,
-    });
-  }
 
   const result = await prisma.category.findFirstOrThrow({
     where: { id },
     include: {
-      event: {
+      products: {
         include: {
           reviews: true,
         },
@@ -214,10 +202,9 @@ const SingleCategory = async (
   });
 
 
-  const events = await prisma.event.findMany({
+  const products = await prisma.product.findMany({
     where: {
       category_name: result.name,
-      status:"UPCOMING",
       AND:andConditions
     },
     take: limit,
@@ -226,7 +213,7 @@ const SingleCategory = async (
         reviews: {
           where: { rating: { gt: 0 } },
         },
-        organizer:{
+        user:{
           select:{
             id:true,
             name:true,
@@ -241,17 +228,17 @@ const SingleCategory = async (
       },
   });
 
-  const eventdata=events.map((event) => {
-    const totalReviews = event.reviews.length;
+  const eventdata=products.map((product) => {
+    const totalReviews = product.reviews.length;
     const avgRating =
       totalReviews > 0
-        ? event.reviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews
+        ? product.reviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews
         : 0;
 
-    return { ...event, avgRating, totalReviews };
+    return { ...product, avgRating, totalReviews };
   });
 
-   const total = await prisma.event.count({ where: { AND: andConditions } });
+   const total = await prisma.product.count({ where: { AND: andConditions } });
 
   return {
      data:{

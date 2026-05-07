@@ -10,4 +10,6 @@ import { createAiData } from "./ai.validation";
 const router=Router()
 router.post("/generate-artical",auth([Role.ADMIN]),geminiController.generateArticle)
 router.post("/generate-recommendations", auth([Role.ADMIN]), geminiController.generateRecommendations);
+router.post("/chat-assistand", auth([Role.ADMIN]), geminiController.chatAssistand);
+
 export const geminiRoute=router

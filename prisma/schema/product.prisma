@@ -6,11 +6,11 @@ model Product {
   location        String
   deliveryCharge  Int
   brand           String?
-  categoryid         String
   warrenty        String
   images          String[]
+  category_name   String
   useractivity    UserActivity[]
-  
+  date            DateTime
   isFeatured      Boolean         @default(false)
   createdAt       DateTime        @default(now())
   orderitems     OrderItem[]
@@ -22,5 +22,5 @@ model Product {
   blog      Blog?     @relation(fields: [blogId], references: [id])
 
 
-  category      Category  @relation(fields: [categoryid], references: [id])
+  category      Category  @relation(fields: [category_name], references: [name])
 }

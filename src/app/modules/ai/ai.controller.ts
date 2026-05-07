@@ -52,6 +52,31 @@ const generateRecommendations = catchAsync(async (req: Request, res: Response) =
   });
 });
 
+const chatAssistand = catchAsync(async (req: Request, res: Response) => {
+  const user = req.user;
+  const { prompt } = req.body;
+
+  if (!user) {
+    throw new AppError(401, "Unauthorized: User data not found");
+  }
+
+  if (!prompt || typeof prompt !== "string") {
+    throw new AppError(400, "Message is required and should be a string");
+  }
+
+  const result = await geminiService.chatAssistand(
+    user.userId,
+    prompt
+  );
+  sendResponse(res, {
+    httpStatusCode: 200,
+    success: true,
+    message: "AI assistant response generated successfully",
+    data: result,
+  });
+});
 
 
-export const geminiController={generateArticle,generateRecommendations}
+
+
+export const geminiController={generateArticle,generateRecommendations,chatAssistand}
