@@ -10,64 +10,8 @@ enum UserStatus {
   DELETED
 }
 
-enum EventType {
-  PUBLIC
-  PRIVATE
-}
-enum PricingType {
-  FREE
-  PAID
-}
-
-
-enum EventStatus {
-  DRAFT
-  UPCOMING
-  ONGOING
-  COMPLETED
-  CANCELLED
-}
-enum ParticipantStatus {
-  PENDING
-  APPROVED
-  REJECTED
-  BANNED
-}
-
-enum PaymentStatus {
- PAID
-  UNPAID
-  FREE
-}
-
-enum InvitationStatus {
-  PENDING
-  ACCEPTED
-  DECLINED
-}
-
-enum ReviewStatus {
-  APPROVED
-  REJECTED
-  PENDING
-
-}
-
 enum BlogStatus {
   DRAFT
   PUBLISHED
   ARCHIVED
 } 
-
-enum BlogCategory {
-  EVENT
-  NEWS
-  ARTICLE
-  REVIEW
-  GUIDE
-  TUTORIAL
-  HOW_TO
-  OPINION
-  COMMENTARY
-  FEATURE
-}

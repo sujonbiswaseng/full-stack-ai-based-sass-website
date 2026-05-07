@@ -48,50 +48,15 @@ export type Blog = Prisma.BlogModel
  */
 export type Category = Prisma.CategoryModel
 /**
- * Model Event
- * 
- */
-export type Event = Prisma.EventModel
-/**
  * Model Highlight
  * 
  */
 export type Highlight = Prisma.HighlightModel
 /**
- * Model Invitation
- * 
- */
-export type Invitation = Prisma.InvitationModel
-/**
  * Model Newsletter
  * 
  */
 export type Newsletter = Prisma.NewsletterModel
-/**
- * Model Notification
- * 
- */
-export type Notification = Prisma.NotificationModel
-/**
- * Model Participant
- * 
- */
-export type Participant = Prisma.ParticipantModel
-/**
- * Model Payment
- * 
- */
-export type Payment = Prisma.PaymentModel
-/**
- * Model DocumentEmbedding
- * 
- */
-export type DocumentEmbedding = Prisma.DocumentEmbeddingModel
-/**
- * Model Review
- * 
- */
-export type Review = Prisma.ReviewModel
 /**
  * Model Service
  * 

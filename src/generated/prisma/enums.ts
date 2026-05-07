@@ -28,70 +28,6 @@ export const UserStatus = {
 export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
 
 
-export const EventType = {
-  PUBLIC: 'PUBLIC',
-  PRIVATE: 'PRIVATE'
-} as const
-
-export type EventType = (typeof EventType)[keyof typeof EventType]
-
-
-export const PricingType = {
-  FREE: 'FREE',
-  PAID: 'PAID'
-} as const
-
-export type PricingType = (typeof PricingType)[keyof typeof PricingType]
-
-
-export const EventStatus = {
-  DRAFT: 'DRAFT',
-  UPCOMING: 'UPCOMING',
-  ONGOING: 'ONGOING',
-  COMPLETED: 'COMPLETED',
-  CANCELLED: 'CANCELLED'
-} as const
-
-export type EventStatus = (typeof EventStatus)[keyof typeof EventStatus]
-
-
-export const ParticipantStatus = {
-  PENDING: 'PENDING',
-  APPROVED: 'APPROVED',
-  REJECTED: 'REJECTED',
-  BANNED: 'BANNED'
-} as const
-
-export type ParticipantStatus = (typeof ParticipantStatus)[keyof typeof ParticipantStatus]
-
-
-export const PaymentStatus = {
-  PAID: 'PAID',
-  UNPAID: 'UNPAID',
-  FREE: 'FREE'
-} as const
-
-export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
-
-
-export const InvitationStatus = {
-  PENDING: 'PENDING',
-  ACCEPTED: 'ACCEPTED',
-  DECLINED: 'DECLINED'
-} as const
-
-export type InvitationStatus = (typeof InvitationStatus)[keyof typeof InvitationStatus]
-
-
-export const ReviewStatus = {
-  APPROVED: 'APPROVED',
-  REJECTED: 'REJECTED',
-  PENDING: 'PENDING'
-} as const
-
-export type ReviewStatus = (typeof ReviewStatus)[keyof typeof ReviewStatus]
-
-
 export const BlogStatus = {
   DRAFT: 'DRAFT',
   PUBLISHED: 'PUBLISHED',
@@ -99,19 +35,3 @@ export const BlogStatus = {
 } as const
 
 export type BlogStatus = (typeof BlogStatus)[keyof typeof BlogStatus]
-
-
-export const BlogCategory = {
-  EVENT: 'EVENT',
-  NEWS: 'NEWS',
-  ARTICLE: 'ARTICLE',
-  REVIEW: 'REVIEW',
-  GUIDE: 'GUIDE',
-  TUTORIAL: 'TUTORIAL',
-  HOW_TO: 'HOW_TO',
-  OPINION: 'OPINION',
-  COMMENTARY: 'COMMENTARY',
-  FEATURE: 'FEATURE'
-} as const
-
-export type BlogCategory = (typeof BlogCategory)[keyof typeof BlogCategory]

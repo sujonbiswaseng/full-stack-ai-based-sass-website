@@ -172,7 +172,7 @@ export type HighlightGroupByOutputType = {
   _max: HighlightMaxAggregateOutputType | null
 }
 
-type GetHighlightGroupByPayload<T extends HighlightGroupByArgs> = Prisma.PrismaPromise<
+export type GetHighlightGroupByPayload<T extends HighlightGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<HighlightGroupByOutputType, T['by']> &
       {

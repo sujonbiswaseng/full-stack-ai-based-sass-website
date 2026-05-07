@@ -49,39 +49,34 @@ const getAllBlogs = async (
 ) => {
 
   const andConditions: BlogWhereInput[]  = [];
-
+  const orConditions: any[] = [];
   if (query) {
-    const orConditions: any[] = [];
-    if (query.title) {
-      orConditions.push({
-        title: {
-          contains: query.title,
-          mode: "insensitive",
-        },
-      });
-    }
-
+   
     if (query.createdAt) {
       const dateRange = parseDateForPrisma(query.createdAt);
       andConditions.push({ createdAt: dateRange.gte });
     }
-    if (search) {
-      orConditions.push(
-        {
-          title: {
-            contains: query.search,
-            mode: "insensitive",
-          },
-        },
-        {
-          content: {
-            contains: query.search,
-            mode: "insensitive",
-          },
-        }
-      );
-    }
+    
   }
+  console.log(search,'serch')
+  if (search) {
+    orConditions.push(
+      {
+        title: {
+          contains:search,
+          mode: "insensitive",
+        },
+      },
+      {
+        content: {
+          contains: search,
+          mode: "insensitive",
+        },
+      }
+    );
+    andConditions.push({OR:orConditions})
+  }
+  console.log(andConditions,'donsdfssadsfdddd')
 
   const blogs = await prisma.blog.findMany({
     where:{AND:andConditions},

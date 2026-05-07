@@ -11,7 +11,7 @@ export const validateRequest = (zodSchema: z.ZodObject) => {
             }
         }
         const parsedResult = zodSchema.safeParse(req.body);
-        
+
 
         if (!parsedResult.success) {
             return next(parsedResult.error);

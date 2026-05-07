@@ -8,13 +8,12 @@ import path from "path";
 import cors from 'cors'
 import errorHandler from "./app/middleware/globalErrorHandeller";
 import { IndexRouter } from "./app/routes";
-import { PaymentController } from "./app/modules/payment/payment.controller";
 import { envVars } from "./app/config/env";
 const app: Application = express();
 app.use('/api/auth',toNodeHandler(auth))
 app.set("view engine", "ejs");
 app.set("views",path.resolve(process.cwd(), `src/app/templates`) )
-app.post("/webhook", express.raw({ type: "application/json" }),PaymentController.handleStripeWebhookEvent);
+
 
 app.use(cookieParser());
 app.use(cors({

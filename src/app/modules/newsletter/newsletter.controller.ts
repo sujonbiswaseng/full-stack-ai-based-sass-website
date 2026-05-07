@@ -27,9 +27,8 @@ console.log(email,'email')
 
 // Get all newsletter subscriptions
 const getAllNewsletters = catchAsync(async (req: Request, res: Response) => {
-  const {email}=req.query
   const { page, limit, skip, sortBy, sortOrder } = paginationSortingHelper(req.query);
-  const result = await NewsletterService.getAllNewsletters(email as string,page,limit,skip);
+  const result = await NewsletterService.getAllNewsletters(req.query,page,limit,skip);
   sendResponse(res, {
     httpStatusCode: status.OK,
     success: true,

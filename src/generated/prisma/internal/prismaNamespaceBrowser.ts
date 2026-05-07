@@ -57,15 +57,8 @@ export const ModelName = {
   Verification: 'Verification',
   Blog: 'Blog',
   Category: 'Category',
-  Event: 'Event',
   Highlight: 'Highlight',
-  Invitation: 'Invitation',
   Newsletter: 'Newsletter',
-  Notification: 'Notification',
-  Participant: 'Participant',
-  Payment: 'Payment',
-  DocumentEmbedding: 'DocumentEmbedding',
-  Review: 'Review',
   Service: 'Service'
 } as const
 
@@ -156,7 +149,6 @@ export const BlogScalarFieldEnum = {
   content: 'content',
   images: 'images',
   authorId: 'authorId',
-  eventId: 'eventId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -176,28 +168,6 @@ export const CategoryScalarFieldEnum = {
 export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
 
 
-export const EventScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  description: 'description',
-  date: 'date',
-  time: 'time',
-  location: 'location',
-  images: 'images',
-  visibility: 'visibility',
-  priceType: 'priceType',
-  status: 'status',
-  is_featured: 'is_featured',
-  category_name: 'category_name',
-  fee: 'fee',
-  organizerId: 'organizerId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
-
-
 export const HighlightScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -211,18 +181,6 @@ export const HighlightScalarFieldEnum = {
 export type HighlightScalarFieldEnum = (typeof HighlightScalarFieldEnum)[keyof typeof HighlightScalarFieldEnum]
 
 
-export const InvitationScalarFieldEnum = {
-  id: 'id',
-  eventId: 'eventId',
-  inviterId: 'inviterId',
-  inviteeId: 'inviteeId',
-  status: 'status',
-  createdAt: 'createdAt'
-} as const
-
-export type InvitationScalarFieldEnum = (typeof InvitationScalarFieldEnum)[keyof typeof InvitationScalarFieldEnum]
-
-
 export const NewsletterScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -232,78 +190,6 @@ export const NewsletterScalarFieldEnum = {
 } as const
 
 export type NewsletterScalarFieldEnum = (typeof NewsletterScalarFieldEnum)[keyof typeof NewsletterScalarFieldEnum]
-
-
-export const NotificationScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  message: 'message',
-  type: 'type',
-  read: 'read',
-  invitationId: 'invitationId',
-  createdAt: 'createdAt'
-} as const
-
-export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
-
-
-export const ParticipantScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  eventId: 'eventId',
-  status: 'status',
-  paymentStatus: 'paymentStatus',
-  joinedAt: 'joinedAt'
-} as const
-
-export type ParticipantScalarFieldEnum = (typeof ParticipantScalarFieldEnum)[keyof typeof ParticipantScalarFieldEnum]
-
-
-export const PaymentScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  eventId: 'eventId',
-  stripeEventId: 'stripeEventId',
-  transactionId: 'transactionId',
-  paymentGatewayData: 'paymentGatewayData',
-  amount: 'amount',
-  status: 'status',
-  participantId: 'participantId',
-  createdAt: 'createdAt'
-} as const
-
-export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
-
-
-export const DocumentEmbeddingScalarFieldEnum = {
-  id: 'id',
-  chunkKey: 'chunkKey',
-  sourceType: 'sourceType',
-  sourceId: 'sourceId',
-  sourceLabel: 'sourceLabel',
-  content: 'content',
-  metadata: 'metadata',
-  isDeleted: 'isDeleted',
-  deletedAt: 'deletedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type DocumentEmbeddingScalarFieldEnum = (typeof DocumentEmbeddingScalarFieldEnum)[keyof typeof DocumentEmbeddingScalarFieldEnum]
-
-
-export const ReviewScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  eventId: 'eventId',
-  rating: 'rating',
-  comment: 'comment',
-  parentId: 'parentId',
-  status: 'status',
-  createdAt: 'createdAt'
-} as const
-
-export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
 
 
 export const ServiceScalarFieldEnum = {
@@ -327,14 +213,6 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-export const NullableJsonNullValueInput = {
-  DbNull: DbNull,
-  JsonNull: JsonNull
-} as const
-
-export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
-
-
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -349,13 +227,4 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
-export const JsonNullValueFilter = {
-  DbNull: DbNull,
-  JsonNull: JsonNull,
-  AnyNull: AnyNull
-} as const
-
-export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
