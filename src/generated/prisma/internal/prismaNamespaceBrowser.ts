@@ -51,6 +51,7 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  AIContent: 'AIContent',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
@@ -59,7 +60,12 @@ export const ModelName = {
   Category: 'Category',
   Highlight: 'Highlight',
   Newsletter: 'Newsletter',
-  Service: 'Service'
+  Order: 'Order',
+  OrderItem: 'OrderItem',
+  Product: 'Product',
+  Review: 'Review',
+  Service: 'Service',
+  UserActivity: 'UserActivity'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -76,6 +82,18 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const AIContentScalarFieldEnum = {
+  id: 'id',
+  prompt: 'prompt',
+  generatedText: 'generatedText',
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type AIContentScalarFieldEnum = (typeof AIContentScalarFieldEnum)[keyof typeof AIContentScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -192,6 +210,61 @@ export const NewsletterScalarFieldEnum = {
 export type NewsletterScalarFieldEnum = (typeof NewsletterScalarFieldEnum)[keyof typeof NewsletterScalarFieldEnum]
 
 
+export const OrderScalarFieldEnum = {
+  id: 'id',
+  totalPrice: 'totalPrice',
+  status: 'status',
+  paymentIntent: 'paymentIntent',
+  createdAt: 'createdAt',
+  userId: 'userId'
+} as const
+
+export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+
+
+export const OrderItemScalarFieldEnum = {
+  id: 'id',
+  quantity: 'quantity',
+  price: 'price',
+  orderId: 'orderId',
+  productId: 'productId'
+} as const
+
+export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
+
+
+export const ProductScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  price: 'price',
+  location: 'location',
+  deliveryCharge: 'deliveryCharge',
+  brand: 'brand',
+  warrenty: 'warrenty',
+  images: 'images',
+  isFeatured: 'isFeatured',
+  createdAt: 'createdAt'
+} as const
+
+export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
+
+
+export const ReviewScalarFieldEnum = {
+  id: 'id',
+  userid: 'userid',
+  productid: 'productid',
+  parentId: 'parentId',
+  rating: 'rating',
+  status: 'status',
+  comment: 'comment',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
+
+
 export const ServiceScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -203,6 +276,18 @@ export const ServiceScalarFieldEnum = {
 } as const
 
 export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
+
+
+export const UserActivityScalarFieldEnum = {
+  id: 'id',
+  action: 'action',
+  category: 'category',
+  productid: 'productid',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type UserActivityScalarFieldEnum = (typeof UserActivityScalarFieldEnum)[keyof typeof UserActivityScalarFieldEnum]
 
 
 export const SortOrder = {

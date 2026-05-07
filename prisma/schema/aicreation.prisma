@@ -1,0 +1,9 @@
+model AIContent {
+  id              String      @id @default(uuid())
+  prompt          String
+  generatedText   String      @db.Text
+  updatedAt       DateTime    @updatedAt
+  userId          String
+  user            User        @relation(fields: [userId], references: [id])
+  createdAt       DateTime    @default(now())
+}

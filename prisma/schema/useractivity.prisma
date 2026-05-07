@@ -1,0 +1,10 @@
+model UserActivity {
+  id          String      @id @default(uuid())
+  action      String
+  category    String
+  productid    String 
+  userId      String
+  product        Product        @relation(fields: [productid], references: [id])
+  user        User        @relation(fields: [userId], references: [id])
+  createdAt   DateTime    @default(now())
+}

@@ -1,0 +1,17 @@
+model Product {
+  id              String          @id @default(uuid())
+  title           String
+  description     String
+  price           Float
+  location        String
+  deliveryCharge  Int
+  brand           String?
+  warrenty        String
+  images          String[]
+  useractivity    UserActivity[]
+  
+  isFeatured      Boolean         @default(false)
+  createdAt       DateTime        @default(now())
+  orderitems     OrderItem[]
+  reviews        Review[]
+}

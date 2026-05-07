@@ -3,6 +3,7 @@ enum Role {
   USER
   MANAGER
 }
+
 enum UserStatus {
   ACTIVE
   INACTIVE
@@ -15,3 +16,11 @@ enum BlogStatus {
   PUBLISHED
   ARCHIVED
 } 
+
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}

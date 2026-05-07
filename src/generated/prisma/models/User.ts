@@ -260,7 +260,11 @@ export type UserWhereInput = {
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
   highlights?: Prisma.HighlightListRelationFilter
+  orders?: Prisma.OrderListRelationFilter
   categories?: Prisma.CategoryListRelationFilter
+  reviews?: Prisma.ReviewListRelationFilter
+  useractivitys?: Prisma.UserActivityListRelationFilter
+  aicontents?: Prisma.AIContentListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -284,7 +288,11 @@ export type UserOrderByWithRelationInput = {
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   highlights?: Prisma.HighlightOrderByRelationAggregateInput
+  orders?: Prisma.OrderOrderByRelationAggregateInput
   categories?: Prisma.CategoryOrderByRelationAggregateInput
+  reviews?: Prisma.ReviewOrderByRelationAggregateInput
+  useractivitys?: Prisma.UserActivityOrderByRelationAggregateInput
+  aicontents?: Prisma.AIContentOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -311,7 +319,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
   highlights?: Prisma.HighlightListRelationFilter
+  orders?: Prisma.OrderListRelationFilter
   categories?: Prisma.CategoryListRelationFilter
+  reviews?: Prisma.ReviewListRelationFilter
+  useractivitys?: Prisma.UserActivityListRelationFilter
+  aicontents?: Prisma.AIContentListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -375,7 +387,11 @@ export type UserCreateInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   highlights?: Prisma.HighlightCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -399,7 +415,11 @@ export type UserUncheckedCreateInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   highlights?: Prisma.HighlightUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -423,7 +443,11 @@ export type UserUpdateInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   highlights?: Prisma.HighlightUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -447,7 +471,11 @@ export type UserUncheckedUpdateInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   highlights?: Prisma.HighlightUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -501,6 +529,11 @@ export type UserUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type UserScalarRelationFilter = {
+  is?: Prisma.UserWhereInput
+  isNot?: Prisma.UserWhereInput
+}
+
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
@@ -552,13 +585,18 @@ export type UserMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type UserScalarRelationFilter = {
-  is?: Prisma.UserWhereInput
-  isNot?: Prisma.UserWhereInput
+export type UserCreateNestedOneWithoutAicontentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAicontentsInput, Prisma.UserUncheckedCreateWithoutAicontentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAicontentsInput
+  connect?: Prisma.UserWhereUniqueInput
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
+export type UserUpdateOneRequiredWithoutAicontentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAicontentsInput, Prisma.UserUncheckedCreateWithoutAicontentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAicontentsInput
+  upsert?: Prisma.UserUpsertWithoutAicontentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAicontentsInput, Prisma.UserUpdateWithoutAicontentsInput>, Prisma.UserUncheckedUpdateWithoutAicontentsInput>
 }
 
 export type EnumRoleFieldUpdateOperationsInput = {
@@ -579,10 +617,6 @@ export type BoolFieldUpdateOperationsInput = {
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
-}
-
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
 }
 
 export type UserCreateNestedOneWithoutSessionsInput = {
@@ -669,6 +703,34 @@ export type UserUpdateOneRequiredWithoutNewsletterNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNewsletterInput, Prisma.UserUpdateWithoutNewsletterInput>, Prisma.UserUncheckedUpdateWithoutNewsletterInput>
 }
 
+export type UserCreateNestedOneWithoutOrdersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrdersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutOrdersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrdersInput
+  upsert?: Prisma.UserUpsertWithoutOrdersInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOrdersInput, Prisma.UserUpdateWithoutOrdersInput>, Prisma.UserUncheckedUpdateWithoutOrdersInput>
+}
+
+export type UserCreateNestedOneWithoutReviewsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsInput
+  upsert?: Prisma.UserUpsertWithoutReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewsInput, Prisma.UserUpdateWithoutReviewsInput>, Prisma.UserUncheckedUpdateWithoutReviewsInput>
+}
+
 export type UserCreateNestedOneWithoutServicesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutServicesInput, Prisma.UserUncheckedCreateWithoutServicesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutServicesInput
@@ -681,6 +743,144 @@ export type UserUpdateOneRequiredWithoutServicesNestedInput = {
   upsert?: Prisma.UserUpsertWithoutServicesInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutServicesInput, Prisma.UserUpdateWithoutServicesInput>, Prisma.UserUncheckedUpdateWithoutServicesInput>
+}
+
+export type UserCreateNestedOneWithoutUseractivitysInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUseractivitysInput, Prisma.UserUncheckedCreateWithoutUseractivitysInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUseractivitysInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutUseractivitysNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUseractivitysInput, Prisma.UserUncheckedCreateWithoutUseractivitysInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUseractivitysInput
+  upsert?: Prisma.UserUpsertWithoutUseractivitysInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUseractivitysInput, Prisma.UserUpdateWithoutUseractivitysInput>, Prisma.UserUncheckedUpdateWithoutUseractivitysInput>
+}
+
+export type UserCreateWithoutAicontentsInput = {
+  id?: string
+  name: string
+  email: string
+  role?: $Enums.Role
+  status?: $Enums.UserStatus
+  phone?: string | null
+  image: string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  bgimage?: string | null
+  isActive?: boolean
+  emailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  newsletter?: Prisma.NewsletterCreateNestedManyWithoutUserInput
+  services?: Prisma.ServiceCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  highlights?: Prisma.HighlightCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAicontentsInput = {
+  id?: string
+  name: string
+  email: string
+  role?: $Enums.Role
+  status?: $Enums.UserStatus
+  phone?: string | null
+  image: string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  bgimage?: string | null
+  isActive?: boolean
+  emailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  newsletter?: Prisma.NewsletterUncheckedCreateNestedManyWithoutUserInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  highlights?: Prisma.HighlightUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAicontentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAicontentsInput, Prisma.UserUncheckedCreateWithoutAicontentsInput>
+}
+
+export type UserUpsertWithoutAicontentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAicontentsInput, Prisma.UserUncheckedUpdateWithoutAicontentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAicontentsInput, Prisma.UserUncheckedCreateWithoutAicontentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAicontentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAicontentsInput, Prisma.UserUncheckedUpdateWithoutAicontentsInput>
+}
+
+export type UserUpdateWithoutAicontentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.StringFieldUpdateOperationsInput | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  newsletter?: Prisma.NewsletterUpdateManyWithoutUserNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  highlights?: Prisma.HighlightUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAicontentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.StringFieldUpdateOperationsInput | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  newsletter?: Prisma.NewsletterUncheckedUpdateManyWithoutUserNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  highlights?: Prisma.HighlightUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -703,7 +903,11 @@ export type UserCreateWithoutSessionsInput = {
   services?: Prisma.ServiceCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   highlights?: Prisma.HighlightCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -726,7 +930,11 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   services?: Prisma.ServiceUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   highlights?: Prisma.HighlightUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -765,7 +973,11 @@ export type UserUpdateWithoutSessionsInput = {
   services?: Prisma.ServiceUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   highlights?: Prisma.HighlightUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -788,7 +1000,11 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   services?: Prisma.ServiceUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   highlights?: Prisma.HighlightUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -811,7 +1027,11 @@ export type UserCreateWithoutAccountsInput = {
   services?: Prisma.ServiceCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   highlights?: Prisma.HighlightCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -834,7 +1054,11 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   services?: Prisma.ServiceUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   highlights?: Prisma.HighlightUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -873,7 +1097,11 @@ export type UserUpdateWithoutAccountsInput = {
   services?: Prisma.ServiceUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   highlights?: Prisma.HighlightUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -896,7 +1124,11 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   services?: Prisma.ServiceUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   highlights?: Prisma.HighlightUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBlogsInput = {
@@ -919,7 +1151,11 @@ export type UserCreateWithoutBlogsInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   highlights?: Prisma.HighlightCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlogsInput = {
@@ -942,7 +1178,11 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   highlights?: Prisma.HighlightUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlogsInput = {
@@ -981,7 +1221,11 @@ export type UserUpdateWithoutBlogsInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   highlights?: Prisma.HighlightUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlogsInput = {
@@ -1004,7 +1248,11 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   highlights?: Prisma.HighlightUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCategoriesInput = {
@@ -1028,6 +1276,10 @@ export type UserCreateWithoutCategoriesInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   highlights?: Prisma.HighlightCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCategoriesInput = {
@@ -1051,6 +1303,10 @@ export type UserUncheckedCreateWithoutCategoriesInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   highlights?: Prisma.HighlightUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCategoriesInput = {
@@ -1090,6 +1346,10 @@ export type UserUpdateWithoutCategoriesInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   highlights?: Prisma.HighlightUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCategoriesInput = {
@@ -1113,6 +1373,10 @@ export type UserUncheckedUpdateWithoutCategoriesInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   highlights?: Prisma.HighlightUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutHighlightsInput = {
@@ -1135,7 +1399,11 @@ export type UserCreateWithoutHighlightsInput = {
   services?: Prisma.ServiceCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutHighlightsInput = {
@@ -1158,7 +1426,11 @@ export type UserUncheckedCreateWithoutHighlightsInput = {
   services?: Prisma.ServiceUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutHighlightsInput = {
@@ -1197,7 +1469,11 @@ export type UserUpdateWithoutHighlightsInput = {
   services?: Prisma.ServiceUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutHighlightsInput = {
@@ -1220,7 +1496,11 @@ export type UserUncheckedUpdateWithoutHighlightsInput = {
   services?: Prisma.ServiceUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNewsletterInput = {
@@ -1243,7 +1523,11 @@ export type UserCreateWithoutNewsletterInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   highlights?: Prisma.HighlightCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNewsletterInput = {
@@ -1266,7 +1550,11 @@ export type UserUncheckedCreateWithoutNewsletterInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   highlights?: Prisma.HighlightUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNewsletterInput = {
@@ -1305,7 +1593,11 @@ export type UserUpdateWithoutNewsletterInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   highlights?: Prisma.HighlightUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNewsletterInput = {
@@ -1328,7 +1620,259 @@ export type UserUncheckedUpdateWithoutNewsletterInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   highlights?: Prisma.HighlightUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutOrdersInput = {
+  id?: string
+  name: string
+  email: string
+  role?: $Enums.Role
+  status?: $Enums.UserStatus
+  phone?: string | null
+  image: string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  bgimage?: string | null
+  isActive?: boolean
+  emailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  newsletter?: Prisma.NewsletterCreateNestedManyWithoutUserInput
+  services?: Prisma.ServiceCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  highlights?: Prisma.HighlightCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutOrdersInput = {
+  id?: string
+  name: string
+  email: string
+  role?: $Enums.Role
+  status?: $Enums.UserStatus
+  phone?: string | null
+  image: string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  bgimage?: string | null
+  isActive?: boolean
+  emailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  newsletter?: Prisma.NewsletterUncheckedCreateNestedManyWithoutUserInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  highlights?: Prisma.HighlightUncheckedCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutOrdersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
+}
+
+export type UserUpsertWithoutOrdersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOrdersInput, Prisma.UserUncheckedUpdateWithoutOrdersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutOrdersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOrdersInput, Prisma.UserUncheckedUpdateWithoutOrdersInput>
+}
+
+export type UserUpdateWithoutOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.StringFieldUpdateOperationsInput | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  newsletter?: Prisma.NewsletterUpdateManyWithoutUserNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  highlights?: Prisma.HighlightUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.StringFieldUpdateOperationsInput | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  newsletter?: Prisma.NewsletterUncheckedUpdateManyWithoutUserNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  highlights?: Prisma.HighlightUncheckedUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutReviewsInput = {
+  id?: string
+  name: string
+  email: string
+  role?: $Enums.Role
+  status?: $Enums.UserStatus
+  phone?: string | null
+  image: string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  bgimage?: string | null
+  isActive?: boolean
+  emailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  newsletter?: Prisma.NewsletterCreateNestedManyWithoutUserInput
+  services?: Prisma.ServiceCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  highlights?: Prisma.HighlightCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutReviewsInput = {
+  id?: string
+  name: string
+  email: string
+  role?: $Enums.Role
+  status?: $Enums.UserStatus
+  phone?: string | null
+  image: string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  bgimage?: string | null
+  isActive?: boolean
+  emailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  newsletter?: Prisma.NewsletterUncheckedCreateNestedManyWithoutUserInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  highlights?: Prisma.HighlightUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutReviewsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+}
+
+export type UserUpsertWithoutReviewsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewsInput, Prisma.UserUncheckedUpdateWithoutReviewsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewsInput, Prisma.UserUncheckedUpdateWithoutReviewsInput>
+}
+
+export type UserUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.StringFieldUpdateOperationsInput | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  newsletter?: Prisma.NewsletterUpdateManyWithoutUserNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  highlights?: Prisma.HighlightUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.StringFieldUpdateOperationsInput | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  newsletter?: Prisma.NewsletterUncheckedUpdateManyWithoutUserNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  highlights?: Prisma.HighlightUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutServicesInput = {
@@ -1351,7 +1895,11 @@ export type UserCreateWithoutServicesInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   highlights?: Prisma.HighlightCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutServicesInput = {
@@ -1374,7 +1922,11 @@ export type UserUncheckedCreateWithoutServicesInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   highlights?: Prisma.HighlightUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutServicesInput = {
@@ -1413,7 +1965,11 @@ export type UserUpdateWithoutServicesInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   highlights?: Prisma.HighlightUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutServicesInput = {
@@ -1436,7 +1992,135 @@ export type UserUncheckedUpdateWithoutServicesInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   highlights?: Prisma.HighlightUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutUseractivitysInput = {
+  id?: string
+  name: string
+  email: string
+  role?: $Enums.Role
+  status?: $Enums.UserStatus
+  phone?: string | null
+  image: string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  bgimage?: string | null
+  isActive?: boolean
+  emailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  newsletter?: Prisma.NewsletterCreateNestedManyWithoutUserInput
+  services?: Prisma.ServiceCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  highlights?: Prisma.HighlightCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutUseractivitysInput = {
+  id?: string
+  name: string
+  email: string
+  role?: $Enums.Role
+  status?: $Enums.UserStatus
+  phone?: string | null
+  image: string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  bgimage?: string | null
+  isActive?: boolean
+  emailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  newsletter?: Prisma.NewsletterUncheckedCreateNestedManyWithoutUserInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  highlights?: Prisma.HighlightUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutUseractivitysInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutUseractivitysInput, Prisma.UserUncheckedCreateWithoutUseractivitysInput>
+}
+
+export type UserUpsertWithoutUseractivitysInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutUseractivitysInput, Prisma.UserUncheckedUpdateWithoutUseractivitysInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutUseractivitysInput, Prisma.UserUncheckedCreateWithoutUseractivitysInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutUseractivitysInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutUseractivitysInput, Prisma.UserUncheckedUpdateWithoutUseractivitysInput>
+}
+
+export type UserUpdateWithoutUseractivitysInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.StringFieldUpdateOperationsInput | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  newsletter?: Prisma.NewsletterUpdateManyWithoutUserNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  highlights?: Prisma.HighlightUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutUseractivitysInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.StringFieldUpdateOperationsInput | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  newsletter?: Prisma.NewsletterUncheckedUpdateManyWithoutUserNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  highlights?: Prisma.HighlightUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1451,7 +2135,11 @@ export type UserCountOutputType = {
   sessions: number
   accounts: number
   highlights: number
+  orders: number
   categories: number
+  reviews: number
+  useractivitys: number
+  aicontents: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1461,7 +2149,11 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
   highlights?: boolean | UserCountOutputTypeCountHighlightsArgs
+  orders?: boolean | UserCountOutputTypeCountOrdersArgs
   categories?: boolean | UserCountOutputTypeCountCategoriesArgs
+  reviews?: boolean | UserCountOutputTypeCountReviewsArgs
+  useractivitys?: boolean | UserCountOutputTypeCountUseractivitysArgs
+  aicontents?: boolean | UserCountOutputTypeCountAicontentsArgs
 }
 
 /**
@@ -1519,8 +2211,36 @@ export type UserCountOutputTypeCountHighlightsArgs<ExtArgs extends runtime.Types
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountCategoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CategoryWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountUseractivitysArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserActivityWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAicontentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AIContentWhereInput
 }
 
 
@@ -1545,7 +2265,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   highlights?: boolean | Prisma.User$highlightsArgs<ExtArgs>
+  orders?: boolean | Prisma.User$ordersArgs<ExtArgs>
   categories?: boolean | Prisma.User$categoriesArgs<ExtArgs>
+  reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
+  useractivitys?: boolean | Prisma.User$useractivitysArgs<ExtArgs>
+  aicontents?: boolean | Prisma.User$aicontentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1608,7 +2332,11 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   highlights?: boolean | Prisma.User$highlightsArgs<ExtArgs>
+  orders?: boolean | Prisma.User$ordersArgs<ExtArgs>
   categories?: boolean | Prisma.User$categoriesArgs<ExtArgs>
+  reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
+  useractivitys?: boolean | Prisma.User$useractivitysArgs<ExtArgs>
+  aicontents?: boolean | Prisma.User$aicontentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1623,7 +2351,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     accounts: Prisma.$AccountPayload<ExtArgs>[]
     highlights: Prisma.$HighlightPayload<ExtArgs>[]
+    orders: Prisma.$OrderPayload<ExtArgs>[]
     categories: Prisma.$CategoryPayload<ExtArgs>[]
+    reviews: Prisma.$ReviewPayload<ExtArgs>[]
+    useractivitys: Prisma.$UserActivityPayload<ExtArgs>[]
+    aicontents: Prisma.$AIContentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2040,7 +2772,11 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   highlights<T extends Prisma.User$highlightsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$highlightsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HighlightPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  orders<T extends Prisma.User$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   categories<T extends Prisma.User$categoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviews<T extends Prisma.User$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  useractivitys<T extends Prisma.User$useractivitysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$useractivitysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aicontents<T extends Prisma.User$aicontentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aicontentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AIContentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2621,6 +3357,30 @@ export type User$highlightsArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
+ * User.orders
+ */
+export type User$ordersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Order
+   */
+  select?: Prisma.OrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Order
+   */
+  omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  where?: Prisma.OrderWhereInput
+  orderBy?: Prisma.OrderOrderByWithRelationInput | Prisma.OrderOrderByWithRelationInput[]
+  cursor?: Prisma.OrderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrderScalarFieldEnum | Prisma.OrderScalarFieldEnum[]
+}
+
+/**
  * User.categories
  */
 export type User$categoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2642,6 +3402,78 @@ export type User$categoriesArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.CategoryScalarFieldEnum | Prisma.CategoryScalarFieldEnum[]
+}
+
+/**
+ * User.reviews
+ */
+export type User$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Review
+   */
+  select?: Prisma.ReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Review
+   */
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
+  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
+}
+
+/**
+ * User.useractivitys
+ */
+export type User$useractivitysArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserActivity
+   */
+  select?: Prisma.UserActivitySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserActivity
+   */
+  omit?: Prisma.UserActivityOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserActivityInclude<ExtArgs> | null
+  where?: Prisma.UserActivityWhereInput
+  orderBy?: Prisma.UserActivityOrderByWithRelationInput | Prisma.UserActivityOrderByWithRelationInput[]
+  cursor?: Prisma.UserActivityWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserActivityScalarFieldEnum | Prisma.UserActivityScalarFieldEnum[]
+}
+
+/**
+ * User.aicontents
+ */
+export type User$aicontentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AIContent
+   */
+  select?: Prisma.AIContentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AIContent
+   */
+  omit?: Prisma.AIContentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AIContentInclude<ExtArgs> | null
+  where?: Prisma.AIContentWhereInput
+  orderBy?: Prisma.AIContentOrderByWithRelationInput | Prisma.AIContentOrderByWithRelationInput[]
+  cursor?: Prisma.AIContentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AIContentScalarFieldEnum | Prisma.AIContentScalarFieldEnum[]
 }
 
 /**

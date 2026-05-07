@@ -1,0 +1,22 @@
+model Review {
+  id         String       @id @default(uuid())
+  userid String
+  productid     String
+  parentId   String?
+  rating     Int
+  status     ReviewStatus @default(APPROVED)
+  comment    String
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  user   User         @relation(fields: [userid], references: [id], onDelete: Cascade)
+  product       Product         @relation(fields: [productid], references: [id], onDelete: Cascade)
+  parent     Review?      @relation("reviewsReply", fields: [parentId], references: [id], onDelete: Cascade)
+  replies    Review[]     @relation("reviewsReply")
+
+  @@map("review")
+}
+
+enum ReviewStatus {
+  APPROVED
+  REJECTED
+}

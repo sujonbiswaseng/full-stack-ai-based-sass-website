@@ -1,0 +1,26 @@
+
+model Order {
+  id              String          @id @default(uuid())
+  totalPrice      Float
+  status          OrderStatus     @default(PENDING)
+  paymentIntent   String?
+  createdAt       DateTime        @default(now())
+
+  userId          String
+  user            User            @relation(fields: [userId], references: [id])
+
+  items           OrderItem[]
+}
+
+
+model OrderItem {
+  id          String      @id @default(uuid())
+  quantity    Int
+  price       Float
+
+  orderId     String
+  order       Order       @relation(fields: [orderId], references: [id])
+
+  productId   String
+  product     Product     @relation(fields: [productId], references: [id])
+}

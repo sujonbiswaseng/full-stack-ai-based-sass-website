@@ -20,7 +20,11 @@ model User {
   sessions      Session[]
   accounts      Account[]
   highlights    Highlight[]
+  orders        Order[]
   categories     Category[]
+  reviews         Review[]
+  useractivitys       UserActivity[]
+  aicontents            AIContent[]
   @@map("user")
 }
 
