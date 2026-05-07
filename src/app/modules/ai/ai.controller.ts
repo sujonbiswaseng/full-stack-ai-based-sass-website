@@ -26,7 +26,32 @@ const generateArticle=catchAsync(async(req:Request,res:Response)=>{
   });
 });
 
+const generateRecommendations = catchAsync(async (req: Request, res: Response) => {
+  const { prompt } = req.body;
+  const user = req.user;
+
+  if (!user) {
+    throw new AppError(401, "Unauthorized: User data not found");
+  }
+
+  if (!prompt || typeof prompt !== "string") {
+    throw new AppError(400, "Prompt is required");
+  }
+
+  const result = await geminiService.generateRecommendations(
+    user.userId,
+    user.email,
+    prompt,
+  );
+
+  sendResponse(res, {
+    httpStatusCode: 200,
+    success: true,
+    message: "Recommendations generated successfully",
+    data: result,
+  });
+});
 
 
 
-export const geminiController={generateArticle}
+export const geminiController={generateArticle,generateRecommendations}
