@@ -37,6 +37,14 @@ export const BlogStatus = {
 export type BlogStatus = (typeof BlogStatus)[keyof typeof BlogStatus]
 
 
+export const PlanType = {
+  FREE: 'FREE',
+  PREMIUM: 'PREMIUM'
+} as const
+
+export type PlanType = (typeof PlanType)[keyof typeof PlanType]
+
+
 export const OrderStatus = {
   PENDING: 'PENDING',
   PAID: 'PAID',

@@ -6,8 +6,10 @@ import { BlogRouters } from "../modules/blog/blog.route";
 import { HighlightRouters } from "../modules/highlight/highlight.route";
 import { NewsletterRouters } from "../modules/newsletter/newsletter.route";
 import { CategoryRouter } from "../modules/category/category.route";
+import { geminiRoute } from "../modules/ai/ai.route";
 
 const router = Router()
+router.use("/v1/ai", geminiRoute);
 router.use("/v1", BlogRouters);
 router.use("/v1", HighlightRouters);
 

@@ -20,8 +20,18 @@ export type UserModel = runtime.Types.Result.DefaultSelection<Prisma.$UserPayloa
 
 export type AggregateUser = {
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
+}
+
+export type UserAvgAggregateOutputType = {
+  promptCount: number | null
+}
+
+export type UserSumAggregateOutputType = {
+  promptCount: number | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -33,6 +43,9 @@ export type UserMinAggregateOutputType = {
   phone: string | null
   image: string | null
   isDeleted: boolean | null
+  plan: $Enums.PlanType | null
+  promptCount: number | null
+  promptResetAt: Date | null
   deletedAt: Date | null
   bgimage: string | null
   isActive: boolean | null
@@ -50,6 +63,9 @@ export type UserMaxAggregateOutputType = {
   phone: string | null
   image: string | null
   isDeleted: boolean | null
+  plan: $Enums.PlanType | null
+  promptCount: number | null
+  promptResetAt: Date | null
   deletedAt: Date | null
   bgimage: string | null
   isActive: boolean | null
@@ -67,6 +83,9 @@ export type UserCountAggregateOutputType = {
   phone: number
   image: number
   isDeleted: number
+  plan: number
+  promptCount: number
+  promptResetAt: number
   deletedAt: number
   bgimage: number
   isActive: number
@@ -77,6 +96,14 @@ export type UserCountAggregateOutputType = {
 }
 
 
+export type UserAvgAggregateInputType = {
+  promptCount?: true
+}
+
+export type UserSumAggregateInputType = {
+  promptCount?: true
+}
+
 export type UserMinAggregateInputType = {
   id?: true
   name?: true
@@ -86,6 +113,9 @@ export type UserMinAggregateInputType = {
   phone?: true
   image?: true
   isDeleted?: true
+  plan?: true
+  promptCount?: true
+  promptResetAt?: true
   deletedAt?: true
   bgimage?: true
   isActive?: true
@@ -103,6 +133,9 @@ export type UserMaxAggregateInputType = {
   phone?: true
   image?: true
   isDeleted?: true
+  plan?: true
+  promptCount?: true
+  promptResetAt?: true
   deletedAt?: true
   bgimage?: true
   isActive?: true
@@ -120,6 +153,9 @@ export type UserCountAggregateInputType = {
   phone?: true
   image?: true
   isDeleted?: true
+  plan?: true
+  promptCount?: true
+  promptResetAt?: true
   deletedAt?: true
   bgimage?: true
   isActive?: true
@@ -167,6 +203,18 @@ export type UserAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: UserAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: UserSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: UserMinAggregateInputType
@@ -197,6 +245,8 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   _count?: UserCountAggregateInputType | true
+  _avg?: UserAvgAggregateInputType
+  _sum?: UserSumAggregateInputType
   _min?: UserMinAggregateInputType
   _max?: UserMaxAggregateInputType
 }
@@ -210,6 +260,9 @@ export type UserGroupByOutputType = {
   phone: string | null
   image: string
   isDeleted: boolean
+  plan: $Enums.PlanType
+  promptCount: number
+  promptResetAt: Date | null
   deletedAt: Date | null
   bgimage: string | null
   isActive: boolean
@@ -217,6 +270,8 @@ export type UserGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
 }
@@ -248,6 +303,9 @@ export type UserWhereInput = {
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   image?: Prisma.StringFilter<"User"> | string
   isDeleted?: Prisma.BoolFilter<"User"> | boolean
+  plan?: Prisma.EnumPlanTypeFilter<"User"> | $Enums.PlanType
+  promptCount?: Prisma.IntFilter<"User"> | number
+  promptResetAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   bgimage?: Prisma.StringNullableFilter<"User"> | string | null
   isActive?: Prisma.BoolFilter<"User"> | boolean
@@ -265,6 +323,7 @@ export type UserWhereInput = {
   reviews?: Prisma.ReviewListRelationFilter
   useractivitys?: Prisma.UserActivityListRelationFilter
   aicontents?: Prisma.AIContentListRelationFilter
+  products?: Prisma.ProductListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -276,6 +335,9 @@ export type UserOrderByWithRelationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  plan?: Prisma.SortOrder
+  promptCount?: Prisma.SortOrder
+  promptResetAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   bgimage?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -293,6 +355,7 @@ export type UserOrderByWithRelationInput = {
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
   useractivitys?: Prisma.UserActivityOrderByRelationAggregateInput
   aicontents?: Prisma.AIContentOrderByRelationAggregateInput
+  products?: Prisma.ProductOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -307,6 +370,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   image?: Prisma.StringFilter<"User"> | string
   isDeleted?: Prisma.BoolFilter<"User"> | boolean
+  plan?: Prisma.EnumPlanTypeFilter<"User"> | $Enums.PlanType
+  promptCount?: Prisma.IntFilter<"User"> | number
+  promptResetAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   bgimage?: Prisma.StringNullableFilter<"User"> | string | null
   isActive?: Prisma.BoolFilter<"User"> | boolean
@@ -324,6 +390,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   reviews?: Prisma.ReviewListRelationFilter
   useractivitys?: Prisma.UserActivityListRelationFilter
   aicontents?: Prisma.AIContentListRelationFilter
+  products?: Prisma.ProductListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -335,6 +402,9 @@ export type UserOrderByWithAggregationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  plan?: Prisma.SortOrder
+  promptCount?: Prisma.SortOrder
+  promptResetAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   bgimage?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -342,8 +412,10 @@ export type UserOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
+  _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
+  _sum?: Prisma.UserSumOrderByAggregateInput
 }
 
 export type UserScalarWhereWithAggregatesInput = {
@@ -358,6 +430,9 @@ export type UserScalarWhereWithAggregatesInput = {
   phone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   image?: Prisma.StringWithAggregatesFilter<"User"> | string
   isDeleted?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  plan?: Prisma.EnumPlanTypeWithAggregatesFilter<"User"> | $Enums.PlanType
+  promptCount?: Prisma.IntWithAggregatesFilter<"User"> | number
+  promptResetAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   bgimage?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isActive?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
@@ -375,6 +450,9 @@ export type UserCreateInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -392,6 +470,7 @@ export type UserCreateInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -403,6 +482,9 @@ export type UserUncheckedCreateInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -420,6 +502,7 @@ export type UserUncheckedCreateInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -431,6 +514,9 @@ export type UserUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -448,6 +534,7 @@ export type UserUpdateInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -459,6 +546,9 @@ export type UserUncheckedUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -476,6 +566,7 @@ export type UserUncheckedUpdateInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -487,6 +578,9 @@ export type UserCreateManyInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -504,6 +598,9 @@ export type UserUpdateManyMutationInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -521,6 +618,9 @@ export type UserUncheckedUpdateManyInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -543,12 +643,19 @@ export type UserCountOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   image?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  plan?: Prisma.SortOrder
+  promptCount?: Prisma.SortOrder
+  promptResetAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   bgimage?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type UserAvgOrderByAggregateInput = {
+  promptCount?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -560,6 +667,9 @@ export type UserMaxOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   image?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  plan?: Prisma.SortOrder
+  promptCount?: Prisma.SortOrder
+  promptResetAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   bgimage?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -577,12 +687,19 @@ export type UserMinOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   image?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  plan?: Prisma.SortOrder
+  promptCount?: Prisma.SortOrder
+  promptResetAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   bgimage?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type UserSumOrderByAggregateInput = {
+  promptCount?: Prisma.SortOrder
 }
 
 export type UserCreateNestedOneWithoutAicontentsInput = {
@@ -613,6 +730,18 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
+}
+
+export type EnumPlanTypeFieldUpdateOperationsInput = {
+  set?: $Enums.PlanType
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -717,6 +846,20 @@ export type UserUpdateOneRequiredWithoutOrdersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOrdersInput, Prisma.UserUpdateWithoutOrdersInput>, Prisma.UserUncheckedUpdateWithoutOrdersInput>
 }
 
+export type UserCreateNestedOneWithoutProductsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProductsInput, Prisma.UserUncheckedCreateWithoutProductsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProductsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProductsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProductsInput, Prisma.UserUncheckedCreateWithoutProductsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProductsInput
+  upsert?: Prisma.UserUpsertWithoutProductsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProductsInput, Prisma.UserUpdateWithoutProductsInput>, Prisma.UserUncheckedUpdateWithoutProductsInput>
+}
+
 export type UserCreateNestedOneWithoutReviewsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsInput
@@ -768,6 +911,9 @@ export type UserCreateWithoutAicontentsInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -784,6 +930,7 @@ export type UserCreateWithoutAicontentsInput = {
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAicontentsInput = {
@@ -795,6 +942,9 @@ export type UserUncheckedCreateWithoutAicontentsInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -811,6 +961,7 @@ export type UserUncheckedCreateWithoutAicontentsInput = {
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAicontentsInput = {
@@ -838,6 +989,9 @@ export type UserUpdateWithoutAicontentsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -854,6 +1008,7 @@ export type UserUpdateWithoutAicontentsInput = {
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAicontentsInput = {
@@ -865,6 +1020,9 @@ export type UserUncheckedUpdateWithoutAicontentsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -881,6 +1039,7 @@ export type UserUncheckedUpdateWithoutAicontentsInput = {
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -892,6 +1051,9 @@ export type UserCreateWithoutSessionsInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -908,6 +1070,7 @@ export type UserCreateWithoutSessionsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -919,6 +1082,9 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -935,6 +1101,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -962,6 +1129,9 @@ export type UserUpdateWithoutSessionsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -978,6 +1148,7 @@ export type UserUpdateWithoutSessionsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -989,6 +1160,9 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1005,6 +1179,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -1016,6 +1191,9 @@ export type UserCreateWithoutAccountsInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -1032,6 +1210,7 @@ export type UserCreateWithoutAccountsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1043,6 +1222,9 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -1059,6 +1241,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1086,6 +1269,9 @@ export type UserUpdateWithoutAccountsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1102,6 +1288,7 @@ export type UserUpdateWithoutAccountsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1113,6 +1300,9 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1129,6 +1319,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBlogsInput = {
@@ -1140,6 +1331,9 @@ export type UserCreateWithoutBlogsInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -1156,6 +1350,7 @@ export type UserCreateWithoutBlogsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlogsInput = {
@@ -1167,6 +1362,9 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -1183,6 +1381,7 @@ export type UserUncheckedCreateWithoutBlogsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlogsInput = {
@@ -1210,6 +1409,9 @@ export type UserUpdateWithoutBlogsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1226,6 +1428,7 @@ export type UserUpdateWithoutBlogsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlogsInput = {
@@ -1237,6 +1440,9 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1253,6 +1459,7 @@ export type UserUncheckedUpdateWithoutBlogsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCategoriesInput = {
@@ -1264,6 +1471,9 @@ export type UserCreateWithoutCategoriesInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -1280,6 +1490,7 @@ export type UserCreateWithoutCategoriesInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCategoriesInput = {
@@ -1291,6 +1502,9 @@ export type UserUncheckedCreateWithoutCategoriesInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -1307,6 +1521,7 @@ export type UserUncheckedCreateWithoutCategoriesInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCategoriesInput = {
@@ -1334,6 +1549,9 @@ export type UserUpdateWithoutCategoriesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1350,6 +1568,7 @@ export type UserUpdateWithoutCategoriesInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCategoriesInput = {
@@ -1361,6 +1580,9 @@ export type UserUncheckedUpdateWithoutCategoriesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1377,6 +1599,7 @@ export type UserUncheckedUpdateWithoutCategoriesInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutHighlightsInput = {
@@ -1388,6 +1611,9 @@ export type UserCreateWithoutHighlightsInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -1404,6 +1630,7 @@ export type UserCreateWithoutHighlightsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutHighlightsInput = {
@@ -1415,6 +1642,9 @@ export type UserUncheckedCreateWithoutHighlightsInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -1431,6 +1661,7 @@ export type UserUncheckedCreateWithoutHighlightsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutHighlightsInput = {
@@ -1458,6 +1689,9 @@ export type UserUpdateWithoutHighlightsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1474,6 +1708,7 @@ export type UserUpdateWithoutHighlightsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutHighlightsInput = {
@@ -1485,6 +1720,9 @@ export type UserUncheckedUpdateWithoutHighlightsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1501,6 +1739,7 @@ export type UserUncheckedUpdateWithoutHighlightsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNewsletterInput = {
@@ -1512,6 +1751,9 @@ export type UserCreateWithoutNewsletterInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -1528,6 +1770,7 @@ export type UserCreateWithoutNewsletterInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNewsletterInput = {
@@ -1539,6 +1782,9 @@ export type UserUncheckedCreateWithoutNewsletterInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -1555,6 +1801,7 @@ export type UserUncheckedCreateWithoutNewsletterInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNewsletterInput = {
@@ -1582,6 +1829,9 @@ export type UserUpdateWithoutNewsletterInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1598,6 +1848,7 @@ export type UserUpdateWithoutNewsletterInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNewsletterInput = {
@@ -1609,6 +1860,9 @@ export type UserUncheckedUpdateWithoutNewsletterInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1625,6 +1879,7 @@ export type UserUncheckedUpdateWithoutNewsletterInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOrdersInput = {
@@ -1636,6 +1891,9 @@ export type UserCreateWithoutOrdersInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -1652,6 +1910,7 @@ export type UserCreateWithoutOrdersInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOrdersInput = {
@@ -1663,6 +1922,9 @@ export type UserUncheckedCreateWithoutOrdersInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -1679,6 +1941,7 @@ export type UserUncheckedCreateWithoutOrdersInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOrdersInput = {
@@ -1706,6 +1969,9 @@ export type UserUpdateWithoutOrdersInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1722,6 +1988,7 @@ export type UserUpdateWithoutOrdersInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -1733,6 +2000,9 @@ export type UserUncheckedUpdateWithoutOrdersInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1749,6 +2019,147 @@ export type UserUncheckedUpdateWithoutOrdersInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutProductsInput = {
+  id?: string
+  name: string
+  email: string
+  role?: $Enums.Role
+  status?: $Enums.UserStatus
+  phone?: string | null
+  image: string
+  isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
+  deletedAt?: Date | string | null
+  bgimage?: string | null
+  isActive?: boolean
+  emailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  blogs?: Prisma.BlogCreateNestedManyWithoutAuthorInput
+  newsletter?: Prisma.NewsletterCreateNestedManyWithoutUserInput
+  services?: Prisma.ServiceCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  highlights?: Prisma.HighlightCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutProductsInput = {
+  id?: string
+  name: string
+  email: string
+  role?: $Enums.Role
+  status?: $Enums.UserStatus
+  phone?: string | null
+  image: string
+  isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
+  deletedAt?: Date | string | null
+  bgimage?: string | null
+  isActive?: boolean
+  emailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  blogs?: Prisma.BlogUncheckedCreateNestedManyWithoutAuthorInput
+  newsletter?: Prisma.NewsletterUncheckedCreateNestedManyWithoutUserInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  highlights?: Prisma.HighlightUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
+  aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutProductsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProductsInput, Prisma.UserUncheckedCreateWithoutProductsInput>
+}
+
+export type UserUpsertWithoutProductsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProductsInput, Prisma.UserUncheckedUpdateWithoutProductsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProductsInput, Prisma.UserUncheckedCreateWithoutProductsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProductsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProductsInput, Prisma.UserUncheckedUpdateWithoutProductsInput>
+}
+
+export type UserUpdateWithoutProductsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.StringFieldUpdateOperationsInput | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  blogs?: Prisma.BlogUpdateManyWithoutAuthorNestedInput
+  newsletter?: Prisma.NewsletterUpdateManyWithoutUserNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  highlights?: Prisma.HighlightUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProductsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.StringFieldUpdateOperationsInput | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  blogs?: Prisma.BlogUncheckedUpdateManyWithoutAuthorNestedInput
+  newsletter?: Prisma.NewsletterUncheckedUpdateManyWithoutUserNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  highlights?: Prisma.HighlightUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
+  aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewsInput = {
@@ -1760,6 +2171,9 @@ export type UserCreateWithoutReviewsInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -1776,6 +2190,7 @@ export type UserCreateWithoutReviewsInput = {
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsInput = {
@@ -1787,6 +2202,9 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -1803,6 +2221,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsInput = {
@@ -1830,6 +2249,9 @@ export type UserUpdateWithoutReviewsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1846,6 +2268,7 @@ export type UserUpdateWithoutReviewsInput = {
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -1857,6 +2280,9 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1873,6 +2299,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutServicesInput = {
@@ -1884,6 +2311,9 @@ export type UserCreateWithoutServicesInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -1900,6 +2330,7 @@ export type UserCreateWithoutServicesInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutServicesInput = {
@@ -1911,6 +2342,9 @@ export type UserUncheckedCreateWithoutServicesInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -1927,6 +2361,7 @@ export type UserUncheckedCreateWithoutServicesInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   useractivitys?: Prisma.UserActivityUncheckedCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutServicesInput = {
@@ -1954,6 +2389,9 @@ export type UserUpdateWithoutServicesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1970,6 +2408,7 @@ export type UserUpdateWithoutServicesInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutServicesInput = {
@@ -1981,6 +2420,9 @@ export type UserUncheckedUpdateWithoutServicesInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1997,6 +2439,7 @@ export type UserUncheckedUpdateWithoutServicesInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   useractivitys?: Prisma.UserActivityUncheckedUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutUseractivitysInput = {
@@ -2008,6 +2451,9 @@ export type UserCreateWithoutUseractivitysInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -2024,6 +2470,7 @@ export type UserCreateWithoutUseractivitysInput = {
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUseractivitysInput = {
@@ -2035,6 +2482,9 @@ export type UserUncheckedCreateWithoutUseractivitysInput = {
   phone?: string | null
   image: string
   isDeleted?: boolean
+  plan?: $Enums.PlanType
+  promptCount?: number
+  promptResetAt?: Date | string | null
   deletedAt?: Date | string | null
   bgimage?: string | null
   isActive?: boolean
@@ -2051,6 +2501,7 @@ export type UserUncheckedCreateWithoutUseractivitysInput = {
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   aicontents?: Prisma.AIContentUncheckedCreateNestedManyWithoutUserInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUseractivitysInput = {
@@ -2078,6 +2529,9 @@ export type UserUpdateWithoutUseractivitysInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2094,6 +2548,7 @@ export type UserUpdateWithoutUseractivitysInput = {
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUseractivitysInput = {
@@ -2105,6 +2560,9 @@ export type UserUncheckedUpdateWithoutUseractivitysInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.StringFieldUpdateOperationsInput | string
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  promptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  promptResetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bgimage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2121,6 +2579,7 @@ export type UserUncheckedUpdateWithoutUseractivitysInput = {
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   aicontents?: Prisma.AIContentUncheckedUpdateManyWithoutUserNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -2140,6 +2599,7 @@ export type UserCountOutputType = {
   reviews: number
   useractivitys: number
   aicontents: number
+  products: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2154,6 +2614,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   reviews?: boolean | UserCountOutputTypeCountReviewsArgs
   useractivitys?: boolean | UserCountOutputTypeCountUseractivitysArgs
   aicontents?: boolean | UserCountOutputTypeCountAicontentsArgs
+  products?: boolean | UserCountOutputTypeCountProductsArgs
 }
 
 /**
@@ -2243,6 +2704,13 @@ export type UserCountOutputTypeCountAicontentsArgs<ExtArgs extends runtime.Types
   where?: Prisma.AIContentWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProductsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2253,6 +2721,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   phone?: boolean
   image?: boolean
   isDeleted?: boolean
+  plan?: boolean
+  promptCount?: boolean
+  promptResetAt?: boolean
   deletedAt?: boolean
   bgimage?: boolean
   isActive?: boolean
@@ -2270,6 +2741,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   useractivitys?: boolean | Prisma.User$useractivitysArgs<ExtArgs>
   aicontents?: boolean | Prisma.User$aicontentsArgs<ExtArgs>
+  products?: boolean | Prisma.User$productsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2282,6 +2754,9 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   phone?: boolean
   image?: boolean
   isDeleted?: boolean
+  plan?: boolean
+  promptCount?: boolean
+  promptResetAt?: boolean
   deletedAt?: boolean
   bgimage?: boolean
   isActive?: boolean
@@ -2299,6 +2774,9 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   phone?: boolean
   image?: boolean
   isDeleted?: boolean
+  plan?: boolean
+  promptCount?: boolean
+  promptResetAt?: boolean
   deletedAt?: boolean
   bgimage?: boolean
   isActive?: boolean
@@ -2316,6 +2794,9 @@ export type UserSelectScalar = {
   phone?: boolean
   image?: boolean
   isDeleted?: boolean
+  plan?: boolean
+  promptCount?: boolean
+  promptResetAt?: boolean
   deletedAt?: boolean
   bgimage?: boolean
   isActive?: boolean
@@ -2324,7 +2805,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "role" | "status" | "phone" | "image" | "isDeleted" | "deletedAt" | "bgimage" | "isActive" | "emailVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "role" | "status" | "phone" | "image" | "isDeleted" | "plan" | "promptCount" | "promptResetAt" | "deletedAt" | "bgimage" | "isActive" | "emailVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   blogs?: boolean | Prisma.User$blogsArgs<ExtArgs>
   newsletter?: boolean | Prisma.User$newsletterArgs<ExtArgs>
@@ -2337,6 +2818,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   useractivitys?: boolean | Prisma.User$useractivitysArgs<ExtArgs>
   aicontents?: boolean | Prisma.User$aicontentsArgs<ExtArgs>
+  products?: boolean | Prisma.User$productsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2356,6 +2838,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
     useractivitys: Prisma.$UserActivityPayload<ExtArgs>[]
     aicontents: Prisma.$AIContentPayload<ExtArgs>[]
+    products: Prisma.$ProductPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2366,6 +2849,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     phone: string | null
     image: string
     isDeleted: boolean
+    plan: $Enums.PlanType
+    promptCount: number
+    promptResetAt: Date | null
     deletedAt: Date | null
     bgimage: string | null
     isActive: boolean
@@ -2777,6 +3263,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   reviews<T extends Prisma.User$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   useractivitys<T extends Prisma.User$useractivitysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$useractivitysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   aicontents<T extends Prisma.User$aicontentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aicontentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AIContentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  products<T extends Prisma.User$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2814,6 +3301,9 @@ export interface UserFieldRefs {
   readonly phone: Prisma.FieldRef<"User", 'String'>
   readonly image: Prisma.FieldRef<"User", 'String'>
   readonly isDeleted: Prisma.FieldRef<"User", 'Boolean'>
+  readonly plan: Prisma.FieldRef<"User", 'PlanType'>
+  readonly promptCount: Prisma.FieldRef<"User", 'Int'>
+  readonly promptResetAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly bgimage: Prisma.FieldRef<"User", 'String'>
   readonly isActive: Prisma.FieldRef<"User", 'Boolean'>
@@ -3474,6 +3964,30 @@ export type User$aicontentsArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.AIContentScalarFieldEnum | Prisma.AIContentScalarFieldEnum[]
+}
+
+/**
+ * User.products
+ */
+export type User$productsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Product
+   */
+  select?: Prisma.ProductSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Product
+   */
+  omit?: Prisma.ProductOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductInclude<ExtArgs> | null
+  where?: Prisma.ProductWhereInput
+  orderBy?: Prisma.ProductOrderByWithRelationInput | Prisma.ProductOrderByWithRelationInput[]
+  cursor?: Prisma.ProductWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductScalarFieldEnum | Prisma.ProductScalarFieldEnum[]
 }
 
 /**

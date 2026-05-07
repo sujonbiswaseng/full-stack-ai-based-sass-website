@@ -17,6 +17,11 @@ enum BlogStatus {
   ARCHIVED
 } 
 
+enum PlanType {
+   FREE
+ PREMIUM 
+ }
+
 enum OrderStatus {
   PENDING
   PAID

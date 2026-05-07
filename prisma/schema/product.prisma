@@ -6,6 +6,7 @@ model Product {
   location        String
   deliveryCharge  Int
   brand           String?
+  categoryid         String
   warrenty        String
   images          String[]
   useractivity    UserActivity[]
@@ -14,4 +15,12 @@ model Product {
   createdAt       DateTime        @default(now())
   orderitems     OrderItem[]
   reviews        Review[]
+    userId    String
+  user      User      @relation(fields: [userId], references: [id])
+
+  blogId    String?
+  blog      Blog?     @relation(fields: [blogId], references: [id])
+
+
+  category      Category  @relation(fields: [categoryid], references: [id])
 }

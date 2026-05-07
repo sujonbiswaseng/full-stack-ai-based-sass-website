@@ -105,6 +105,9 @@ export const UserScalarFieldEnum = {
   phone: 'phone',
   image: 'image',
   isDeleted: 'isDeleted',
+  plan: 'plan',
+  promptCount: 'promptCount',
+  promptResetAt: 'promptResetAt',
   deletedAt: 'deletedAt',
   bgimage: 'bgimage',
   isActive: 'isActive',
@@ -241,10 +244,13 @@ export const ProductScalarFieldEnum = {
   location: 'location',
   deliveryCharge: 'deliveryCharge',
   brand: 'brand',
+  categoryid: 'categoryid',
   warrenty: 'warrenty',
   images: 'images',
   isFeatured: 'isFeatured',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  userId: 'userId',
+  blogId: 'blogId'
 } as const
 
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]

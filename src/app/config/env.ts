@@ -37,10 +37,11 @@ interface EnvConfig {
     OPENROUTER_API_KEY:string;
     OPENROUTER_EMBEDDING_MODEL:string;
     OPENROUTER_LLM_MODEL:string;
-},
+  },
   UPSTASH_REDIS_REST_URL: string;
   UPSTASH_REDIS_REST_TOKEN: string;
-
+  GEMINI_API_KEY: string;
+  CLIPDROW_API_KEY: string;
 }
 
 const loadEnvVariables = (): EnvConfig => {
@@ -66,7 +67,9 @@ const loadEnvVariables = (): EnvConfig => {
     "OPENROUTER_EMBEDDING_MODEL",
     "OPENROUTER_LLM_MODEL",
     "UPSTASH_REDIS_REST_URL",
-    "UPSTASH_REDIS_REST_TOKEN"
+    "UPSTASH_REDIS_REST_TOKEN",
+    "GEMINI_API_KEY",
+    "CLIPDROW_API_KEY"
   ];
   requireEnvVariable.forEach((variable) => {
     if (!process.env[variable]) {
@@ -110,10 +113,11 @@ const loadEnvVariables = (): EnvConfig => {
       OPENROUTER_API_KEY:process.env.OPENROUTER_API_KEY as string,
       OPENROUTER_EMBEDDING_MODEL:process.env.OPENROUTER_EMBEDDING_MODEL as string,
       OPENROUTER_LLM_MODEL:process.env.OPENROUTER_LLM_MODEL as string,
-  },
-      UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL as string,
-      UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN as string,
- 
+    },
+    UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL as string,
+    UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN as string,
+    GEMINI_API_KEY: process.env.GEMINI_API_KEY as string,
+    CLIPDROW_API_KEY: process.env.CLIPDROW_API_KEY as string,
   };
 };
 
