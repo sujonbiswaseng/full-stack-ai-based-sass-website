@@ -1,6 +1,7 @@
 import rateLimit, { ipKeyGenerator } from "express-rate-limit";
 import { Request } from "express";
 import { IRequestUser } from "../interface/requestUser.interface";
+import AppError from "../errorHelper/AppError";
 
 
 export const createLimiter = (options: {
@@ -23,6 +24,6 @@ export const createLimiter = (options: {
       }
       return options.freeLimit;
     },
-    message: options.message
+    message:{message:options.message}
   });
 };

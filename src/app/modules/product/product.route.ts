@@ -9,13 +9,24 @@ import { publicandprivateLimiter } from "../../middleware/priemiumandrouteCheck"
 
 const router = Router()
 
+router.use(publicandprivateLimiter)
+
 router.post(
     "/product",
-    publicandprivateLimiter,
     auth([Role.ADMIN, Role.USER, Role.MANAGER]),
     multerUpload.array("files"),
     validateRequest(CreateProductSchema),
     ProductController.createProduct
   )
+
+router.get(
+    "/products",
+    ProductController.getAllProducts
+)
+router.get(
+    "/product/:productId",
+    ProductController.getSingleProduct
+)
+
 
 export const ProductRoute=router

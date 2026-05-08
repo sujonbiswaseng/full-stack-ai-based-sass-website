@@ -1,11 +1,9 @@
-import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
-import { envVars } from "../../config/env";
+
 import openai from "../../config/gemini.config";
 import AppError from "../../errorHelper/AppError";
-import { GoogleGenAI } from "@google/genai";
-import * as fs from "node:fs";
+
 import { prisma } from "../../lib/prisma";
-import axios from "axios";
+
 import { checkAndUpdateAiLimit } from "./ai.limit";
 const DAILY_LIMIT = 10;
 
@@ -147,7 +145,7 @@ const generateRecommendations = async (
 
 const chatAssistand = async (userId: string, prompt: string) => {
   try {
-    const buildPrompt = ({ userName, products, userHistory, message }: any) => {
+    const buildPrompt = ({ userName, products, userHistory, prompt }: any) => {
       return `
     You are an AI assistant for an AI SaaS platform.
     
@@ -161,7 +159,8 @@ const chatAssistand = async (userId: string, prompt: string) => {
     ${JSON.stringify(products)}
     
     User message:
-    ${message}
+    ${prompt}
+
 
     
     
@@ -170,18 +169,7 @@ const chatAssistand = async (userId: string, prompt: string) => {
     - Recommend products
     - Answer shortly
     - Use platform context
-
-    Response format:
-{
-  "summary": "short summary",
-  "recommendations": [
-    {
-      "title": "product title",
-      "category": "category name",
-      "reason": "why recommended"
-    }
-  ]
-}
+    Act as a recommendation engine. Analyze user context, order history, and product catalog to return concise, high-quality product suggestions in the required JSON schema only.
     `;
     };
 
