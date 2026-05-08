@@ -1,10 +1,11 @@
 import status from "http-status";
 import AppError from "../../errorHelper/AppError";
 import { IRequestUser } from "../../interface/requestUser.interface";
-import { ICreateProduct } from "./product.interface";
+import { ICreateProduct, IupdateProduct } from "./product.interface";
 import { prisma } from "../../lib/prisma";
 import { logger } from "../../lib/pino";
 import { parseDateForPrisma } from "../../utils/parseDate";
+import { Product } from "../../../generated/prisma/client";
 
 const createProduct = async (user: IRequestUser, payload: ICreateProduct) => {
     try {
@@ -165,5 +166,29 @@ const  getSingleProduct=async(productId: string) =>{
     return { ...product,...relatedItems, avgRating, totalReviews };
   }
 
+const updateProduct = async (productId: string, payload:IupdateProduct) => {
 
-  export const ProductServices={createProduct,getAllProducts,getSingleProduct}
+  try {
+    const product = await prisma.product.findUnique({
+      where: { id: productId }
+    });
+
+    if (!product) {
+      throw new Error("Product not found");
+    }
+    const updatedProduct = await prisma.product.update({
+      where: { id: productId },
+      data: { ...payload}
+    });
+
+    return updatedProduct;
+  } catch (error) {
+    logger.error((error as Error).message || "Unknown error occurred while updating product category");
+    throw new AppError(400, (error as Error).message || "An error occurred while updating product category.");
+  }
+};
+
+
+
+
+  export const ProductServices={createProduct,getAllProducts,getSingleProduct,updateProduct}

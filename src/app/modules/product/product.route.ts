@@ -13,7 +13,7 @@ router.use(publicandprivateLimiter)
 
 router.post(
     "/product",
-    auth([Role.ADMIN, Role.USER, Role.MANAGER]),
+    auth([Role.ADMIN, Role.MANAGER]),
     multerUpload.array("files"),
     validateRequest(CreateProductSchema),
     ProductController.createProduct
@@ -26,6 +26,12 @@ router.get(
 router.get(
     "/product/:productId",
     ProductController.getSingleProduct
+)
+
+router.patch(
+    "/product/:productId",
+    auth([Role.ADMIN, Role.MANAGER]),
+    ProductController.updateProduct
 )
 
 
