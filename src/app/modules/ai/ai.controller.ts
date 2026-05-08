@@ -76,7 +76,25 @@ const chatAssistand = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const generateAdminAnalytics = catchAsync(async (req: Request, res: Response) => {
+  const user = req.user;
+
+  if (!user) {
+    throw new AppError(401, "Unauthorized: User data not found");
+  }
+
+  const result = await geminiService.generateAdminAnalytics(user.email);
+
+  sendResponse(res, {
+    httpStatusCode: 200,
+    success: true,
+    message: "Admin analytics generated successfully",
+    data: result,
+  });
+});
 
 
 
-export const geminiController={generateArticle,generateRecommendations,chatAssistand}
+
+
+export const geminiController={generateArticle,generateRecommendations,chatAssistand,generateAdminAnalytics}

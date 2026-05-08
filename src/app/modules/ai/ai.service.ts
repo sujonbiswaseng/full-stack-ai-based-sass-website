@@ -27,14 +27,14 @@ const generateArticle = async (
       throw new AppError(404, "Authenticated user not found");
     }
 
-    const data=await checkAndUpdateAiLimit(existuser.id)
+    const data = await checkAndUpdateAiLimit(existuser.id);
 
-    if ((data.remaining < 0 || data.remaining>10) && existuser.role !=="ADMIN") {
+    if (
+      (data.remaining < 0 || data.remaining > 10) &&
+      existuser.role !== "ADMIN"
+    ) {
       throw new AppError(400, "Daily limit reached. Try again after 24 hours.");
     }
-
-
-
     const response = await openai.chat.completions.create({
       model: "gemini-3-flash-preview",
       messages: [
@@ -65,8 +65,10 @@ const generateArticle = async (
     return result;
   } catch (error: any) {
     if (error?.status === 429) {
-
-      throw new AppError(error.status, `"Rate limit exceeded and status(${error.status}), You are sending too many requests. Please slow down and try again later."`);
+      throw new AppError(
+        error.status,
+        `"Rate limit exceeded and status(${error.status}), You are sending too many requests. Please slow down and try again later."`,
+      );
     }
     throw new AppError(500, error.message || "An unexpected error occurred");
   }
@@ -84,9 +86,12 @@ const generateRecommendations = async (
     if (!existuser) {
       throw new AppError(404, "Authenticated user not found");
     }
-    const data=await checkAndUpdateAiLimit(existuser.id)
+    const data = await checkAndUpdateAiLimit(existuser.id);
 
-    if ((data.remaining < 0 || data.remaining>10) && existuser.role !=="ADMIN") {
+    if (
+      (data.remaining < 0 || data.remaining > 10) &&
+      existuser.role !== "ADMIN"
+    ) {
       throw new AppError(400, "Daily limit reached. Try again after 24 hours.");
     }
 
@@ -131,11 +136,12 @@ const generateRecommendations = async (
     return result;
   } catch (error: any) {
     if (error?.status === 429) {
-
-      throw new AppError(error.status, `"Rate limit exceeded and status(${error.status}), You are sending too many requests. Please slow down and try again later."`);
+      throw new AppError(
+        error.status,
+        `"Rate limit exceeded and status(${error.status}), You are sending too many requests. Please slow down and try again later."`,
+      );
     }
     throw new AppError(500, error.message || "An unexpected error occurred");
-   
   }
 };
 
@@ -156,12 +162,26 @@ const chatAssistand = async (userId: string, prompt: string) => {
     
     User message:
     ${message}
+
+    
     
     Rules:
     - Be professional
     - Recommend products
     - Answer shortly
     - Use platform context
+
+    Response format:
+{
+  "summary": "short summary",
+  "recommendations": [
+    {
+      "title": "product title",
+      "category": "category name",
+      "reason": "why recommended"
+    }
+  ]
+}
     `;
     };
 
@@ -172,9 +192,9 @@ const chatAssistand = async (userId: string, prompt: string) => {
     if (!user) {
       throw new AppError(404, "Authenticated user not found");
     }
-    const data=await checkAndUpdateAiLimit(user.id)
+    const data = await checkAndUpdateAiLimit(user.id);
 
-    if ((data.remaining < 0 || data.remaining>10) && user.role !=="ADMIN") {
+    if ((data.remaining < 0 || data.remaining > 10) && user.role !== "ADMIN") {
       throw new AppError(400, "Daily limit reached. Try again after 24 hours.");
     }
 
@@ -209,32 +229,195 @@ const chatAssistand = async (userId: string, prompt: string) => {
     const result = JSON.parse(aiResponse || "{}");
 
     await prisma.$transaction(async (tx) => {
-      (
-        await tx.aIContent.create({
-          data: {
-            prompt,
-            generatedText: aiResponse as string,
-            userId: user?.id as string,
-          },
-        }),
+      (await tx.aIContent.create({
+        data: {
+          prompt,
+          generatedText: aiResponse as string,
+          userId: user?.id as string,
+        },
+      }),
         await tx.user.update({
           where: { id: user.id as string },
           data: { promptCount: { increment: 1 } },
-        })
-      );
+        }));
     });
     return result;
   } catch (error: any) {
     if (error?.status === 429) {
-
-      throw new AppError(error.status, `"Rate limit exceeded and status(${error.status}), You are sending too many requests. Please slow down and try again later."`);
+      throw new AppError(
+        error.status,
+        `"Rate limit exceeded and status(${error.status}), You are sending too many requests. Please slow down and try again later."`,
+      );
     }
     throw new AppError(500, error.message || "An unexpected error occurred");
   }
 };
+const generateAdminAnalytics = async (email: string) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+    if (!user) {
+      throw new AppError(404, "Authenticated user not found");
+    }
 
+    const data = await checkAndUpdateAiLimit(user.id);
+
+    if ((data.remaining < 0 || data.remaining > 10) && user.role !== "ADMIN") {
+      throw new AppError(400, "Daily limit reached. Try again after 24 hours.");
+    }
+    const [orders, totalUsers, activeUsers] = await Promise.all([
+      prisma.order.findMany({
+        include: {
+          items: {
+            include: {
+              product: true,
+            },
+          },
+        },
+      }),
+
+      prisma.user.count(),
+
+      prisma.user.count({
+        where: {
+          isActive: true,
+        },
+      }),
+    ]);
+
+    /**
+     * TOTAL ORDERS
+     */
+    const totalOrders = orders.length;
+
+    /**
+     * TOTAL REVENUE
+     */
+    const totalRevenue = orders.reduce(
+      (sum, order) => sum + Number(order.totalPrice),
+      0,
+    );
+
+    /**
+     * PRODUCT REVENUE ANALYSIS
+     */
+    const productRevenue: Record<string, number> = {};
+
+    orders.forEach((order) => {
+      order.items.forEach((item) => {
+        const title = item.product.title;
+
+        productRevenue[title] =
+          (productRevenue[title] || 0) + item.price * item.quantity;
+      });
+    });
+
+    /**
+     * SORT PRODUCTS
+     */
+    const sortedProducts = Object.entries(productRevenue).sort(
+      (a, b) => b[1] - a[1],
+    );
+
+    const topProduct = sortedProducts[0] || [];
+
+    const lowProduct = sortedProducts[sortedProducts.length - 1] || [];
+
+    /**
+     * AI PROMPT
+     */
+    const aiPrompt = `
+You are an expert ecommerce business analyst.
+
+Analyze the business performance data.
+
+Business Data:
+- Total Revenue: ${totalRevenue}
+- Total Orders: ${totalOrders}
+- Total Users: ${totalUsers}
+- Active Users: ${activeUsers}
+
+Top Product:
+- ${topProduct[0]} (${topProduct[1]})
+
+Low Product:
+- ${lowProduct[0]} (${lowProduct[1]})
+
+Tasks:
+1. Analyze business performance.
+2. Explain profit or loss condition.
+3. Analyze user activity.
+4. Analyze product performance.
+5. Provide short insights.
+6. Give smart recommendations.
+
+Return ONLY valid JSON.
+
+{
+  "summary": "",
+  "businessStatus": "",
+  "userActivity": "",
+  "productPerformance": "",
+  "insights": [],
+  "recommendations": []
+}
+`;
+    const response = await openai.chat.completions.create({
+      model: "gemini-3-flash-preview",
+      response_format: {
+        type: "json_object",
+      },
+      messages: [
+        {
+          role: "user",
+          content: aiPrompt,
+        },
+      ],
+    });
+
+    const content = response.choices[0].message.content;
+
+    const result = JSON.parse(content || "{}");
+
+    await prisma.aIContent.create({
+      data: {
+        userId: user.id,
+        prompt: aiPrompt,
+        generatedText: content || "",
+      },
+    });
+
+    await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        promptCount: {
+          increment: 1,
+        },
+      },
+    });
+
+    return {
+      totalRevenue,
+      topProduct,
+      lowProduct,
+      aiInsights: result,
+    };
+  } catch (error: any) {
+    if (error?.status === 429) {
+      throw new AppError(
+        error.status,
+        `"Rate limit exceeded and status(${error.status}), You are sending too many requests. Please slow down and try again later."`,
+      );
+    }
+    throw new AppError(500, error.message || "An unexpected error occurred");
+  }
+};
 export const geminiService = {
   generateArticle,
   generateRecommendations,
   chatAssistand,
+  generateAdminAnalytics,
 };
