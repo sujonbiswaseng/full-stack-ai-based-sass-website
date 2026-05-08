@@ -275,7 +275,7 @@ export type OrderItemCreateInput = {
   id?: string
   quantity: number
   price: number
-  order: Prisma.OrderCreateNestedOneWithoutItemsInput
+  order: Prisma.OrderCreateNestedOneWithoutOrderitemsInput
   product: Prisma.ProductCreateNestedOneWithoutOrderitemsInput
 }
 
@@ -291,7 +291,7 @@ export type OrderItemUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  order?: Prisma.OrderUpdateOneRequiredWithoutItemsNestedInput
+  order?: Prisma.OrderUpdateOneRequiredWithoutOrderitemsNestedInput
   product?: Prisma.ProductUpdateOneRequiredWithoutOrderitemsNestedInput
 }
 
@@ -508,7 +508,7 @@ export type OrderItemCreateWithoutProductInput = {
   id?: string
   quantity: number
   price: number
-  order: Prisma.OrderCreateNestedOneWithoutItemsInput
+  order: Prisma.OrderCreateNestedOneWithoutOrderitemsInput
 }
 
 export type OrderItemUncheckedCreateWithoutProductInput = {
@@ -583,7 +583,7 @@ export type OrderItemUpdateWithoutProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  order?: Prisma.OrderUpdateOneRequiredWithoutItemsNestedInput
+  order?: Prisma.OrderUpdateOneRequiredWithoutOrderitemsNestedInput
 }
 
 export type OrderItemUncheckedUpdateWithoutProductInput = {

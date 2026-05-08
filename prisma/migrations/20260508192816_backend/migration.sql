@@ -11,7 +11,10 @@ CREATE TYPE "BlogStatus" AS ENUM ('DRAFT', 'PUBLISHED', 'ARCHIVED');
 CREATE TYPE "PlanType" AS ENUM ('FREE', 'PREMIUM');
 
 -- CreateEnum
-CREATE TYPE "OrderStatus" AS ENUM ('PENDING', 'PAID', 'SHIPPED', 'DELIVERED', 'CANCELLED');
+CREATE TYPE "OrderStatus" AS ENUM ('PLACED', 'PREPARING', 'READY', 'DELIVERED', 'CANCELLED');
+
+-- CreateEnum
+CREATE TYPE "PaymentStatus" AS ENUM ('PAID', 'UNPAID', 'FREE');
 
 -- CreateEnum
 CREATE TYPE "ReviewStatus" AS ENUM ('APPROVED', 'REJECTED');
@@ -41,7 +44,6 @@ CREATE TABLE "user" (
     "plan" "PlanType" NOT NULL DEFAULT 'FREE',
     "promptCount" INTEGER NOT NULL DEFAULT 0,
     "promptResetAt" TIMESTAMP(3),
-    "aitimeusing" INTEGER NOT NULL DEFAULT 0,
     "deletedAt" TIMESTAMP(3),
     "bgimage" TEXT DEFAULT 'https://images.pexels.com/photos/4303031/pexels-photo-4303031.jpeg',
     "isActive" BOOLEAN NOT NULL DEFAULT false,
@@ -104,6 +106,7 @@ CREATE TABLE "Blog" (
     "content" TEXT NOT NULL,
     "images" TEXT[],
     "authorId" TEXT NOT NULL,
+    "productid" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -149,11 +152,17 @@ CREATE TABLE "newsletter" (
 -- CreateTable
 CREATE TABLE "Order" (
     "id" TEXT NOT NULL,
+    "first_name" TEXT,
+    "last_name" TEXT,
+    "phone" TEXT,
+    "address" TEXT NOT NULL,
     "totalPrice" DOUBLE PRECISION NOT NULL,
-    "status" "OrderStatus" NOT NULL DEFAULT 'PENDING',
+    "status" "OrderStatus" NOT NULL DEFAULT 'PLACED',
     "paymentIntent" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "userId" TEXT NOT NULL,
+    "PaymentStatus" "PaymentStatus" NOT NULL DEFAULT 'UNPAID',
+    "buyerid" TEXT NOT NULL,
+    "sellerId" TEXT NOT NULL,
 
     CONSTRAINT "Order_pkey" PRIMARY KEY ("id")
 );
@@ -170,6 +179,22 @@ CREATE TABLE "OrderItem" (
 );
 
 -- CreateTable
+CREATE TABLE "Payment" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "productid" TEXT NOT NULL,
+    "stripeEventId" TEXT,
+    "transactionId" UUID,
+    "paymentGatewayData" JSONB,
+    "amount" DOUBLE PRECISION NOT NULL,
+    "status" "PaymentStatus" NOT NULL DEFAULT 'UNPAID',
+    "orderid" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Payment_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Product" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
@@ -180,8 +205,11 @@ CREATE TABLE "Product" (
     "brand" TEXT,
     "warrenty" TEXT NOT NULL,
     "images" TEXT[],
+    "category_name" TEXT NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL,
     "isFeatured" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "userId" TEXT NOT NULL,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
 );
@@ -251,6 +279,15 @@ CREATE UNIQUE INDEX "newsletter_email_key" ON "newsletter"("email");
 CREATE INDEX "newsletter_userId_idx" ON "newsletter"("userId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Payment_stripeEventId_key" ON "Payment"("stripeEventId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Payment_transactionId_key" ON "Payment"("transactionId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Payment_orderid_key" ON "Payment"("orderid");
+
+-- CreateIndex
 CREATE INDEX "service_userId_idx" ON "service"("userId");
 
 -- AddForeignKey
@@ -266,6 +303,9 @@ ALTER TABLE "account" ADD CONSTRAINT "account_userId_fkey" FOREIGN KEY ("userId"
 ALTER TABLE "Blog" ADD CONSTRAINT "Blog_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "Blog" ADD CONSTRAINT "Blog_productid_fkey" FOREIGN KEY ("productid") REFERENCES "Product"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "categories" ADD CONSTRAINT "categories_adminId_fkey" FOREIGN KEY ("adminId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -275,13 +315,28 @@ ALTER TABLE "highlight" ADD CONSTRAINT "highlight_userId_fkey" FOREIGN KEY ("use
 ALTER TABLE "newsletter" ADD CONSTRAINT "newsletter_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Order" ADD CONSTRAINT "Order_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Order" ADD CONSTRAINT "Order_buyerid_fkey" FOREIGN KEY ("buyerid") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "OrderItem" ADD CONSTRAINT "OrderItem_orderId_fkey" FOREIGN KEY ("orderId") REFERENCES "Order"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "OrderItem" ADD CONSTRAINT "OrderItem_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Payment" ADD CONSTRAINT "Payment_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Payment" ADD CONSTRAINT "Payment_productid_fkey" FOREIGN KEY ("productid") REFERENCES "Product"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Payment" ADD CONSTRAINT "Payment_orderid_fkey" FOREIGN KEY ("orderid") REFERENCES "Order"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Product" ADD CONSTRAINT "Product_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Product" ADD CONSTRAINT "Product_category_name_fkey" FOREIGN KEY ("category_name") REFERENCES "categories"("name") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "review" ADD CONSTRAINT "review_userid_fkey" FOREIGN KEY ("userid") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;

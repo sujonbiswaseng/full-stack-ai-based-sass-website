@@ -217,12 +217,17 @@ export type NewsletterScalarFieldEnum = (typeof NewsletterScalarFieldEnum)[keyof
 
 export const OrderScalarFieldEnum = {
   id: 'id',
+  first_name: 'first_name',
+  last_name: 'last_name',
+  phone: 'phone',
+  address: 'address',
   totalPrice: 'totalPrice',
   status: 'status',
   paymentIntent: 'paymentIntent',
   createdAt: 'createdAt',
   PaymentStatus: 'PaymentStatus',
-  userId: 'userId'
+  buyerid: 'buyerid',
+  sellerId: 'sellerId'
 } as const
 
 export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]

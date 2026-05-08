@@ -23,9 +23,9 @@ enum PlanType {
  }
 
 enum OrderStatus {
-  PENDING
-  PAID
-  SHIPPED
+    PLACED
+  PREPARING
+  READY
   DELIVERED
   CANCELLED
 }

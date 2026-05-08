@@ -6,6 +6,7 @@ import { CookieUtils } from "../utils/cookie";
 import { prisma } from "../lib/prisma";
 import { Role } from "../../generated/prisma/enums";
 import { jwtUtils } from "../utils/jwt";
+import { logger } from "../lib/pino";
 
 const auth = (roles: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -60,6 +61,9 @@ const auth = (roles: string[]) => {
 
         if (verifiedToken.success && verifiedToken.data) {
           const userData = verifiedToken.data;
+          console.log(userData,'userdata')
+          logger.info(`Decoded user data from access token ${userData}`);
+     
 
           if (roles.length > 0 && !roles.includes(userData.role as Role)) {
             throw new AppError(status.FORBIDDEN, "Forbidden access! No permission.");

@@ -46,9 +46,9 @@ export type PlanType = (typeof PlanType)[keyof typeof PlanType]
 
 
 export const OrderStatus = {
-  PENDING: 'PENDING',
-  PAID: 'PAID',
-  SHIPPED: 'SHIPPED',
+  PLACED: 'PLACED',
+  PREPARING: 'PREPARING',
+  READY: 'READY',
   DELIVERED: 'DELIVERED',
   CANCELLED: 'CANCELLED'
 } as const
