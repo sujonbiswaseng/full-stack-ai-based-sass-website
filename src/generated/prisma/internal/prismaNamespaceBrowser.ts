@@ -170,6 +170,7 @@ export const BlogScalarFieldEnum = {
   content: 'content',
   images: 'images',
   authorId: 'authorId',
+  productid: 'productid',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -250,8 +251,7 @@ export const ProductScalarFieldEnum = {
   date: 'date',
   isFeatured: 'isFeatured',
   createdAt: 'createdAt',
-  userId: 'userId',
-  blogId: 'blogId'
+  userId: 'userId'
 } as const
 
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]

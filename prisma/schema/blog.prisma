@@ -5,8 +5,11 @@ model Blog {
   content     String
   images       String[]
   authorId    String
+  productid    String
   author      User      @relation(fields: [authorId], references: [id] ,onDelete: Cascade, onUpdate: Cascade)
+   product      Product      @relation(fields: [productid], references: [id], onDelete: Cascade, onUpdate: Cascade)
   createdAt   DateTime  @default(now())
-  products   Product[]
+
+
   updatedAt   DateTime  @updatedAt
 }

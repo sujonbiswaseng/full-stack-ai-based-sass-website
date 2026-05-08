@@ -6,9 +6,9 @@ import { logger } from "../lib/pino";
 
 
 cloudinary.config({
-    cloud_name: "dokqgr8fs",
-    api_key: "935915381385685",
-    api_secret: "R8e1RaC-ZiXpzNqbQOI7I-tzjz8",
+    cloud_name: envVars.CLOUDINARY.CLOUDINARY_CLOUD_NAME,
+    api_key: envVars.CLOUDINARY.CLOUDINARY_API_KEY,
+    api_secret: envVars.CLOUDINARY.CLOUDINARY_API_SECRET,
     secure:true,
     timeout: 60000
 })

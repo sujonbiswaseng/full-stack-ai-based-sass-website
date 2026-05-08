@@ -20,8 +20,9 @@ const createBlog = async (user: IRequestUser, payload: ICreateBlogInput) => {
     const product = await prisma.product.findUnique({
       where: { id: productid },
     });
-    if (!event) {
-      throw new AppError(status.BAD_REQUEST, "The provided eventId does not correspond to any existing event.");
+    if (!product) {
+      throw new AppError(status.BAD_REQUEST, "The provided product ID does not correspond to any existing product.");
+ 
     }
   
   if (!title || !content || !images) {
@@ -32,7 +33,8 @@ const createBlog = async (user: IRequestUser, payload: ICreateBlogInput) => {
       title,
       content,
       images,
-      authorId: user.userId
+      authorId: user.userId,
+      productid:payload.productid as string
     },
   });
   return blog;
@@ -85,7 +87,7 @@ const getAllBlogs = async (
     orderBy: { [sortBy!]: sortOrder },
     include: {
       author: { select: { id: true, name: true, email: true, image: true } },
-      products:true
+      product:true
     },
   });
   const total = await prisma.blog.count({ where :{AND:andConditions}});
@@ -105,7 +107,7 @@ const getSingleBlog = async (blogId: string) => {
     where: { id: blogId },
     include: {
       author: { select: { id: true, name: true, email: true, image: true } },
-      products:true,
+      product:true,
 
     },
   });
