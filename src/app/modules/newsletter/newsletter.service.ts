@@ -1,11 +1,12 @@
 import status from "http-status";
 import AppError from "../../errorHelper/AppError";
 import { prisma } from "../../lib/prisma";
+import { logger } from "../../lib/pino";
 import { NewsletterWhereInput } from "../../../generated/prisma/models";
 import { parseDateForPrisma } from "../../utils/parseDate";
 
 const createNewsletter = async (payload: { email: string; userId: string }) => {
-  console.log(payload.email,'emi')
+  logger.debug({ email: payload.email }, "Creating newsletter subscription");
   if (!payload.email || !payload.userId) {
     throw new AppError(status.BAD_REQUEST, "Email and userId are required to subscribe to the newsletter.");
   }

@@ -6,18 +6,19 @@ import { ICreateBlogInput, IUpdateBlogInput } from "./blog.interface";
 import { truncateSync } from "fs";
 import { BlogWhereInput } from "../../../generated/prisma/models";
 import { parseDateForPrisma } from "../../utils/parseDate";
+import { logger } from "../../lib/pino";
 
 
 const createBlog = async (user: IRequestUser, payload: ICreateBlogInput) => {
-  const { title, content, images,eventId } = payload;
+  const { title, content, images,productid } = payload;
   if (!images || !Array.isArray(images) || images.length === 0) {
     throw new AppError(status.BAD_REQUEST, "At least one image is required to create a blog.");
   }
-    if (!eventId) {
+    if (!productid) {
       throw new AppError(status.BAD_REQUEST, "Event ID is required to create a blog.");
     }
-    const event = await prisma.event.findUnique({
-      where: { id: eventId },
+    const product = await prisma.product.findUnique({
+      where: { id: productid },
     });
     if (!event) {
       throw new AppError(status.BAD_REQUEST, "The provided eventId does not correspond to any existing event.");
@@ -31,8 +32,7 @@ const createBlog = async (user: IRequestUser, payload: ICreateBlogInput) => {
       title,
       content,
       images,
-      authorId: user.userId,
-      eventId:event.id
+      authorId: user.userId
     },
   });
   return blog;
@@ -58,7 +58,7 @@ const getAllBlogs = async (
     }
     
   }
-  console.log(search,'serch')
+  logger.debug({ search }, "Blog search query received");
   if (search) {
     orConditions.push(
       {
@@ -76,7 +76,7 @@ const getAllBlogs = async (
     );
     andConditions.push({OR:orConditions})
   }
-  console.log(andConditions,'donsdfssadsfdddd')
+  logger.debug({ andConditions }, "Blog filters built");
 
   const blogs = await prisma.blog.findMany({
     where:{AND:andConditions},
@@ -85,7 +85,7 @@ const getAllBlogs = async (
     orderBy: { [sortBy!]: sortOrder },
     include: {
       author: { select: { id: true, name: true, email: true, image: true } },
-      event:true
+      products:true
     },
   });
   const total = await prisma.blog.count({ where :{AND:andConditions}});
@@ -105,7 +105,7 @@ const getSingleBlog = async (blogId: string) => {
     where: { id: blogId },
     include: {
       author: { select: { id: true, name: true, email: true, image: true } },
-      event:true,
+      products:true,
 
     },
   });

@@ -2,6 +2,7 @@ import { Role, User, UserStatus } from "../../../generated/prisma/client";
 import { UserWhereInput } from "../../../generated/prisma/models";
 import AppError from "../../errorHelper/AppError";
 import { prisma } from "../../lib/prisma";
+import { logger } from "../../lib/pino";
 import { UserQueryOptions } from "./user.interface";
 
 const UpdateUserProfile = async (
@@ -89,7 +90,7 @@ const GetAllUsers = async (
         reviews: {
           where: { rating: { gt: 0 } },
         },
-       events:true,
+       products:true,
        accounts:{select:{password:true}}
       },
       orderBy: {
@@ -124,7 +125,7 @@ const GetAllUsers = async (
  
 
 const OwnProfileDelete = async (userid: string) => {
-  console.log(userid);
+  logger.debug({ userId: userid }, "Deleting own profile");
   const userData = await prisma.user.findUnique({
     where: { id: userid },
   });

@@ -3,6 +3,7 @@ import AppError from "../../errorHelper/AppError";
 import { IRequestUser } from "../../interface/requestUser.interface";
 import { auth } from "../../lib/auth";
 import { prisma } from "../../lib/prisma";
+import { logger } from "../../lib/pino";
 import { tokenUtils } from "../../utils/token";
 import {
   IChangePasswordPayload,
@@ -31,7 +32,7 @@ const UserRegister = async (payload: UserCreateInput) => {
       image,
     },
   });
-  console.log(data,'data')
+  logger.debug({ userId: data?.user?.id }, "User registration response received");
   if (!data.user) {
     throw new AppError(400, "User register failed");
   }
@@ -252,7 +253,7 @@ const resetPassword = async (
   otp: string,
   newPassword: string,
 ) => {
-  console.log(email,otp,newPassword,'passwrd')
+  logger.debug({ email }, "Password reset requested");
   const isUserExist = await prisma.user.findUnique({
     where: {
       email,

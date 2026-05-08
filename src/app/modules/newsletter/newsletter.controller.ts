@@ -5,6 +5,7 @@ import status from "http-status";
 import AppError from "../../errorHelper/AppError";
 import { NewsletterService } from "./newsletter.service";
 import paginationSortingHelper from "../../helpers/paginationHelping";
+import { logger } from "../../lib/pino";
 
 // Create a new newsletter subscription
 const createNewsletter = catchAsync(async (req: Request, res: Response) => {
@@ -12,7 +13,7 @@ const createNewsletter = catchAsync(async (req: Request, res: Response) => {
     throw new AppError(status.UNAUTHORIZED, "Unauthorized access. Please login first.");
   }
 const {email}=req.body
-console.log(email,'email')
+logger.debug({ email }, "Newsletter subscription request received")
  
 
   const result = await NewsletterService.createNewsletter({email,userId:req.user.userId as string});

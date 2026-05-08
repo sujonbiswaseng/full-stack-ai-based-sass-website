@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { auth } from "../lib/auth";
 import { prisma } from "../lib/prisma";
+import { logger } from "../lib/pino";
 
 export const seedAdmin = async () => {
   const existingUser=await prisma.user.findUnique({where:{
@@ -22,12 +23,12 @@ export const seedAdmin = async () => {
     },
   });
   if(!result){
-    console.log('fail create user')
+    logger.error("Failed to create admin user");
   }
   return {success:true,message:"user created successfully",data:result}
 
   } catch (error) {
-    console.log(error,'errror')
+    logger.error({ error }, "Seed admin script failed");
   }
 };
 

@@ -2,21 +2,23 @@ import { Server } from "http";
 import app from "./app"
 import { envVars } from "./app/config/env";
 import { redisService } from "./app/lib/redis";
+import { logger } from "./app/lib/pino";
 let server:Server
 const port = 5000
 const bootstrap = async() => {
     try {
-       await redisService.connect().catch(console.error)
+       await redisService.connect().catch((error) => logger.error({ error }, "Failed to connect Redis"))
         server = app.listen(envVars.PORT, () => {
-            console.log(`Server is running on http://localhost:${port}`);
+          logger.info("Server started on port 5000");
+          logger.info(`Server is running on http://localhost:${port}`);
         });
     } catch (error) {
-        console.error('Failed to start server:', error);
+        logger.error({ error }, "Failed to start server");
     }   
 }
 
 process.on("uncaughtException",(error)=>{
-  console.log("uncaught exception detected shutting down server",error)
+  logger.fatal({ error }, "Uncaught exception detected, shutting down server");
   if(server){
     server.close(()=>{
       process.exit(1)
@@ -26,7 +28,7 @@ process.on("uncaughtException",(error)=>{
 })
 
 process.on("unhandledRejection",(error)=>{
-  console.log("unhandle rejection detected shutting down server")
+  logger.error({ error }, "Unhandled rejection detected, shutting down server");
   if(server){
     server.close(()=>{
       process.exit(1)
@@ -36,7 +38,7 @@ process.on("unhandledRejection",(error)=>{
 
 
 process.on("SIGTERM",(error)=>{
-  console.log("unhandle sigterm detected shutting down server")
+  logger.warn({ error }, "SIGTERM detected, shutting down server");
   if(server){
     server.close(()=>{
       process.exit(1)

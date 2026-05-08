@@ -2,6 +2,7 @@
 import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import { cloudinaryUpload } from "./cloudinary.config";
+import { logger } from "../lib/pino";
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinaryUpload,
@@ -9,7 +10,7 @@ const storage = new CloudinaryStorage({
     const originalName = file.originalname;
     const extension = originalName.split(".").pop()?.toLowerCase();
     
-    console.log(file,'fisdf')
+    logger.debug({ fileName: file.originalname, mimeType: file.mimetype }, "Preparing upload file metadata");
     const fileNameWithoutExtension = originalName
       .split(".")
       .slice(0, -1)

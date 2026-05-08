@@ -3,6 +3,7 @@ import nodemailer from "nodemailer";
 import { envVars } from "../config/env";
 import AppError from "../errorHelper/AppError";
 import { generateEmailTemplate } from "../templates/htmlEmail";
+import { logger } from "../lib/pino";
 
 const smtpPort = Number(envVars.EMAIL_SENDER.SMTP_PORT);
 const transporter = nodemailer.createTransport({
@@ -49,14 +50,14 @@ export const sendEmail = async ({subject, templateData, templateName, to, attach
             }))
         })
 
-        console.log(`Email sent to ${to} : ${info.messageId}`);
+        logger.info(`Email sent to ${to}: ${info.messageId}`);
     } catch (error : any) {
-        console.log("Email Sending Error", {
+        logger.error({
             message: error?.message,
             code: error?.code,
             command: error?.command,
             responseCode: error?.responseCode,
-        });
+        }, "Email sending failed");
         throw new AppError(status.INTERNAL_SERVER_ERROR, "Failed to send email");
     }
 }

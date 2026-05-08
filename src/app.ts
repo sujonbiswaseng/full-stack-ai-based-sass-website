@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from "express";
-
+import pinoHttp from "pino-http";
+import {logger} from './app/lib/pino'
 import { notFound } from "./app/middleware/notFound";
 import cookieParser from 'cookie-parser';
 import { toNodeHandler } from "better-auth/node";
@@ -14,6 +15,19 @@ app.use('/api/auth',toNodeHandler(auth))
 app.set("view engine", "ejs");
 app.set("views",path.resolve(process.cwd(), `src/app/templates`) )
 
+
+// pino middleware
+app.use(
+  pinoHttp({
+    logger,
+    customProps: (req: any) => ({
+      method: req.method,
+      url: req.url,
+      ip: req.ip,
+      userId: req.user?.id || "guest"
+    })
+  })
+);
 
 app.use(cookieParser());
 app.use(cors({

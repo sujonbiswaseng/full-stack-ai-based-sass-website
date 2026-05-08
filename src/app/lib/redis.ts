@@ -1,5 +1,6 @@
 import { envVars } from "../config/env";
 import { Redis } from "@upstash/redis";
+import { logger } from "./pino";
 
 class RedisService {
     private client: Redis | null = null;
@@ -14,10 +15,10 @@ class RedisService {
 
             // Upstash does not support events, so we simulate it
             this.isConnected = true;
-            console.log("Redis Client Ready (Upstash)");
+            logger.info("Redis Client Ready (Upstash)");
 
         } catch (error) {
-            console.error("Error connecting to Redis:", error);
+            logger.error({ error }, "Error connecting to Redis");
             this.isConnected = false;
         }
     }
@@ -37,7 +38,7 @@ class RedisService {
             const client = this.ensureConnection();
             return await client.get(key);
         } catch (error) {
-            console.error("Redis get error:", error);
+            logger.error({ error }, "Redis get error");
             return null;
         }
     }
@@ -55,7 +56,7 @@ class RedisService {
                 ex: ttlInSecond,
             });
         } catch (err) {
-            console.error("Redis SET error:", err);
+            logger.error({ error: err }, "Redis set error");
         }
     }
 
@@ -72,7 +73,7 @@ class RedisService {
             const client = this.ensureConnection();
             await client.del(key);
         } catch (error) {
-            console.log("Redis DELETE ERROR:", error);
+            logger.error({ error }, "Redis delete error");
         }
     }
 
@@ -82,7 +83,7 @@ class RedisService {
             const res = await client.ping();
             return res === "PONG";
         } catch (error) {
-            console.error("Redis ping error:", error);
+            logger.error({ error }, "Redis ping error");
             return false;
         }
     }
@@ -91,7 +92,7 @@ class RedisService {
         // Upstash does not require manual disconnect
         this.client = null;
         this.isConnected = false;
-        console.log("Redis Client Disconnected (virtual)");
+        logger.info("Redis Client Disconnected (virtual)");
     }
 }
 

@@ -8,6 +8,7 @@ import { CookieUtils } from "../../utils/cookie";
 import { envVars } from "../../config/env";
 import { auth } from "../../lib/auth";
 import AppError from "../../errorHelper/AppError";
+import { logger } from "../../lib/pino";
 
 const UserRegister = catchAsync(async (req: Request, res: Response) => {
   const payload = {
@@ -167,7 +168,7 @@ const googleLoginSuccess = catchAsync(async (req: Request, res: Response) => {
     const redirectPath = req.query.redirect as string || "/dashboard";
 
     const sessionToken = req.cookies["better-auth.session_token"];
-    console.log(sessionToken,'sessionToken')    
+    logger.debug({ hasSessionToken: Boolean(sessionToken) }, "Google login callback received");
 
     if(!sessionToken){
         return res.redirect(`${envVars.FRONTEND_URL}/login?error=oauth_failed`);

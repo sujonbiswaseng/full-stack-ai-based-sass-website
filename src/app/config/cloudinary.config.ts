@@ -2,6 +2,7 @@ import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
 import { envVars } from "./env";
 import AppError from "../errorHelper/AppError";
 import status from "http-status";
+import { logger } from "../lib/pino";
 
 
 cloudinary.config({
@@ -78,11 +79,11 @@ export const deleteFileFromCloudinary = async (url : string) => {
             }
             )
 
-            console.log(`File ${publicId} deleted from cloudinary`);
+            logger.info(`File ${publicId} deleted from cloudinary`);
         }
 
     } catch (error) {
-        console.error("Error deleting file from Cloudinary:", error);
+        logger.error({ error }, "Error deleting file from Cloudinary");
         throw new AppError(status.INTERNAL_SERVER_ERROR,"Failed to delete file from Cloudinary");
     }
 }

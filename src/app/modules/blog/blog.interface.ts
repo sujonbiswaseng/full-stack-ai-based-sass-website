@@ -2,7 +2,7 @@ export type ICreateBlogInput = {
   title: string;
   content: string;
   images?: string[];
-  eventId?: string | null;
+  productid?: string | null;
 };
 
 export type IUpdateBlogInput = {
@@ -10,5 +10,5 @@ export type IUpdateBlogInput = {
   content?: string;
   images?: string[];
   authorId?: string;
-  eventId?: string | null;
+  productid?: string | null;
 };

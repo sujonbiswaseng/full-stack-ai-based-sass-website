@@ -4,6 +4,7 @@ import { catchAsync } from "../../shared/catchAsync";
 import { sendResponse } from "../../shared/sendResponse";
 import { status } from "http-status";
 import paginationSortingHelper from "../../helpers/paginationHelping";
+import { logger } from "../../lib/pino";
 
 const CreateCategory = catchAsync(
   async (req: Request, res: Response) => {
@@ -45,7 +46,7 @@ const getCategory = catchAsync(async (req: Request, res: Response) => {
 
 const SingleCategory = catchAsync(async (req: Request, res: Response) => {
   const { page, limit, skip } = paginationSortingHelper(req.query);
-  console.log(req.query,)
+  logger.debug({ query: req.query }, "Fetching single category");
   const result = await categoryService.SingleCategory(
     req.params.id as string,
     req.query,
