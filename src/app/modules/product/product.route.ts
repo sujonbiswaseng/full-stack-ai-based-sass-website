@@ -41,6 +41,4 @@ router.delete(
     ProductController.deleteProduct
 )
 
-
-
 export const ProductRoute=router

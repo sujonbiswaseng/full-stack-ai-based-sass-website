@@ -26,6 +26,7 @@ model User {
   orders        Order[]
   categories     Category[]
   reviews         Review[]
+  payments        Payment[]
   useractivitys       UserActivity[]
   aicontents            AIContent[]
   products             Product[]

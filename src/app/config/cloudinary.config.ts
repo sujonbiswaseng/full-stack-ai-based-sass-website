@@ -12,6 +12,10 @@ cloudinary.config({
     secure:true,
     timeout: 60000
 })
+logger.info( envVars.CLOUDINARY.CLOUDINARY_CLOUD_NAME+'clu')
+
+
+
 
 export const uploadFileToCloudinary = async (
     buffer : Buffer,

@@ -15,10 +15,9 @@ model Product {
   createdAt       DateTime        @default(now())
   orderitems     OrderItem[]
   reviews        Review[]
+  payment       Payment[]
   blogs      Blog[]
-    userId    String
+  userId    String
   user      User      @relation(fields: [userId], references: [id])
-
-
   category      Category  @relation(fields: [category_name], references: [name])
 }

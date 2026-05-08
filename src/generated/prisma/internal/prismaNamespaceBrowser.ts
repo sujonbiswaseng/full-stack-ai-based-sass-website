@@ -62,6 +62,7 @@ export const ModelName = {
   Newsletter: 'Newsletter',
   Order: 'Order',
   OrderItem: 'OrderItem',
+  Payment: 'Payment',
   Product: 'Product',
   Review: 'Review',
   Service: 'Service',
@@ -220,6 +221,7 @@ export const OrderScalarFieldEnum = {
   status: 'status',
   paymentIntent: 'paymentIntent',
   createdAt: 'createdAt',
+  PaymentStatus: 'PaymentStatus',
   userId: 'userId'
 } as const
 
@@ -235,6 +237,22 @@ export const OrderItemScalarFieldEnum = {
 } as const
 
 export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
+
+
+export const PaymentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  productid: 'productid',
+  stripeEventId: 'stripeEventId',
+  transactionId: 'transactionId',
+  paymentGatewayData: 'paymentGatewayData',
+  amount: 'amount',
+  status: 'status',
+  orderid: 'orderid',
+  createdAt: 'createdAt'
+} as const
+
+export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
 export const ProductScalarFieldEnum = {
@@ -305,6 +323,14 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -319,4 +345,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

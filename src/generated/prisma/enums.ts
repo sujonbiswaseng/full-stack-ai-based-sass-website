@@ -56,6 +56,15 @@ export const OrderStatus = {
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
 
 
+export const PaymentStatus = {
+  PAID: 'PAID',
+  UNPAID: 'UNPAID',
+  FREE: 'FREE'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
 export const ReviewStatus = {
   APPROVED: 'APPROVED',
   REJECTED: 'REJECTED'

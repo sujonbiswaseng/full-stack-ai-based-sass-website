@@ -24,6 +24,7 @@ function errorHandler (err: any, req: Request, res: Response, next: NextFunction
       });
     if (err instanceof multer.MulterError) {
         logger.warn("Multer file upload error");
+        
         return res.status(400).json({
             success: false,
             message: err.code === 'LIMIT_FILE_SIZE' ? "ফাইলটি অনেক বড়! ১ মেগাবাইটের বেশি ফাইল আপলোড করা যাবে না।" : err.message,

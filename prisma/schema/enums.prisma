@@ -29,3 +29,9 @@ enum OrderStatus {
   DELIVERED
   CANCELLED
 }
+
+enum PaymentStatus {
+ PAID
+  UNPAID
+  FREE
+}

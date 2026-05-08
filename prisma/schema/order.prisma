@@ -5,11 +5,13 @@ model Order {
   status          OrderStatus     @default(PENDING)
   paymentIntent   String?
   createdAt       DateTime        @default(now())
+  PaymentStatus    PaymentStatus @default(UNPAID)
 
   userId          String
   user            User            @relation(fields: [userId], references: [id])
-
+  payment          Payment?
   items           OrderItem[]
+
 }
 
 
