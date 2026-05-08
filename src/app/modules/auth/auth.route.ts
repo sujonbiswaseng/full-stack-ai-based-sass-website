@@ -5,8 +5,10 @@ import { createUserSchema } from "./auth.validation"
 import { Role } from "../../../generated/prisma/enums"
 import auth from "../../middleware/Auth"
 import { multerUpload } from "../../config/multer.config"
+import { authLimiter } from "../../middleware/priemiumandrouteCheck"
 
 const router=Router()
+router.use(authLimiter);
 router.post("/register",multerUpload.single("file"),validateRequest(createUserSchema), AuthController.UserRegister)
 router.post("/login", AuthController.loginUser)
 router.get("/me",auth([Role.ADMIN, Role.USER,Role.MANAGER]), AuthController.getMe)

@@ -6,9 +6,10 @@ import { createcategoryData, UpdatecategoryData } from "./category.validation";
 import { multerUpload } from "../../config/multer.config";
 import auth from "../../middleware/Auth";
 import { Role } from "../../../generated/prisma/enums";
+import { publicandprivateLimiter } from "../../middleware/priemiumandrouteCheck";
 
 const router=Router()
-
+router.use(publicandprivateLimiter)
 router.post("/category",auth([Role.ADMIN,Role.MANAGER]),multerUpload.single("file"),validateRequest(createcategoryData),CategoryController.CreateCategory)
 router.get("/category",CategoryController.getCategory)
 router.get("/category/:id",CategoryController.SingleCategory)

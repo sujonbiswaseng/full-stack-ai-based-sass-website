@@ -4,8 +4,10 @@ import auth from "../../middleware/Auth";
 import { UserController } from "./user.controller";
 import { validateRequest } from "../../middleware/validateRequest";
 import { UpdateUserCommonData, UpdateuserProfileData } from "./user.validation";
+import { publicandprivateLimiter } from "../../middleware/priemiumandrouteCheck";
 
 const router=Router()
+router.use(publicandprivateLimiter)
 router.get("/admin/users",auth([Role.ADMIN,Role.MANAGER]),UserController.GetAllUsers)
 router.delete("/profile/own",auth([Role.USER]),UserController.OwnProfileDelete)
 router.get(

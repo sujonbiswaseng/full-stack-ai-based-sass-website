@@ -7,8 +7,10 @@ import auth from "../../middleware/Auth";
 import { createHighlightSchema, updateHighlightSchema } from "./highlight.validation";
 import { HighlightController } from "./highlight.controller";
 import { multerUpload } from "../../config/multer.config";
+import { publicandprivateLimiter } from '../../middleware/priemiumandrouteCheck';
 
 const router = Router();
+router.use(publicandprivateLimiter)
 
 // Routes for highlight CRUD
 router.post(

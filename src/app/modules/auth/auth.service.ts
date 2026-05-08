@@ -117,7 +117,7 @@ const getMe = async (user: IRequestUser) => {
       id: user.userId,
     },
     include: {
-      events: {
+      products: {
         include: {
           reviews: true,
         },
@@ -130,9 +130,9 @@ const getMe = async (user: IRequestUser) => {
 
   const userid = isUserExists.id;
   const ratings = await prisma.review.groupBy({
-    by: ["eventId"],
+    by: ["productid"],
     where: {
-      userId: userid,
+      userid: userid,
       rating: {
         gt: 0,
       },
