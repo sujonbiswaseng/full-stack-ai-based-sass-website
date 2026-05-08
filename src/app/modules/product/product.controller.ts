@@ -9,7 +9,7 @@ import paginationSortingHelper from "../../helpers/paginationHelping";
 
 const createProduct = catchAsync(async (req: Request, res: Response) => {
     try {
-      if (!req.user?.userId) {
+      if (!req.user) {
         throw new AppError(status.UNAUTHORIZED, "Unauthorized access. Please login first.");
       }
       const files = req.files as Express.Multer.File[];
@@ -89,8 +89,11 @@ const createProduct = catchAsync(async (req: Request, res: Response) => {
     try {
       const { productId } = req.params;
       const updateData = req.body;
+      if (!req.user) {
+        throw new AppError(status.UNAUTHORIZED, "Unauthorized access. Please login first.");
+      }
 
-      const updatedProduct = await ProductServices.updateProduct(productId as string, updateData);
+      const updatedProduct = await ProductServices.updateProduct(req.user.email as string,productId as string, updateData);
 
       sendResponse(res, {
         httpStatusCode: status.OK,
@@ -104,10 +107,31 @@ const createProduct = catchAsync(async (req: Request, res: Response) => {
     }
   });
   
+  const deleteProduct = catchAsync(async (req: Request, res: Response) => {
+    try {
+      const { productId } = req.params;
+      if (!req.user) {
+        throw new AppError(status.UNAUTHORIZED, "Unauthorized access. Please login first.");
+      }
+
+      const result = await ProductServices.deleteProduct(req.user.email ,productId as string);
+
+      sendResponse(res, {
+        httpStatusCode: status.OK,
+        success: true,
+        message: "Product deleted successfully",
+        data: result,
+      });
+    } catch (error: any) {
+      logger.error(error.message);
+      throw new AppError(400, `${error.message}`);
+    }
+  });
 
   export const ProductController={
     createProduct,
     getAllProducts,
     getSingleProduct,
-    updateProduct
+    updateProduct,
+    deleteProduct
   }

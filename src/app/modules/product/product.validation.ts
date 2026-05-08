@@ -19,4 +19,20 @@ export const CreateProductSchema = z.object({
 });
 
 // For partial updates
-export const UpdateProductSchema = CreateProductSchema.partial();
+export const UpdateProductShema = z.object({
+    title: z.string().optional(),
+    description: z.string().optional(),
+    price: z.number().optional(),
+    location: z.string().optional(),
+    deliveryCharge: z.number().optional(),
+    brand: z.string().nullable().optional(),
+    warrenty: z.string().optional(),
+    images: z.any().optional(),
+    category_name: z.string().optional(),
+    date: z
+    .string()
+    .refine((val) => !isNaN(Date.parse(val)), {
+      message: "Invalid date format",
+    })
+    .transform((val) => new Date(val).toISOString()).optional()
+  });

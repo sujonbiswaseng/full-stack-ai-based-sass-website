@@ -3,7 +3,7 @@ import auth from "../../middleware/Auth"
 import { Role } from "../../../generated/prisma/enums"
 import { multerUpload } from "../../config/multer.config"
 import { validateRequest } from "../../middleware/validateRequest"
-import { CreateProductSchema } from "./product.validation"
+import { CreateProductSchema, UpdateProductShema } from "./product.validation"
 import { ProductController } from "./product.controller"
 import { publicandprivateLimiter } from "../../middleware/priemiumandrouteCheck"
 
@@ -28,11 +28,19 @@ router.get(
     ProductController.getSingleProduct
 )
 
-router.patch(
+router.put(
     "/product/:productId",
     auth([Role.ADMIN, Role.MANAGER]),
+    multerUpload.array("files"),
+  validateRequest(UpdateProductShema),
     ProductController.updateProduct
 )
+router.delete(
+    "/product/:productId",
+    auth([Role.ADMIN, Role.MANAGER]),
+    ProductController.deleteProduct
+)
+
 
 
 export const ProductRoute=router

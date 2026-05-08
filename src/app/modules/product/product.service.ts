@@ -166,9 +166,16 @@ const  getSingleProduct=async(productId: string) =>{
     return { ...product,...relatedItems, avgRating, totalReviews };
   }
 
-const updateProduct = async (productId: string, payload:IupdateProduct) => {
+const updateProduct = async (email:string,productId: string, payload:IupdateProduct) => {
 
   try {
+    const user = await prisma.user.findUnique({
+      where: { email }
+    });
+
+    if (!user) {
+      throw new AppError(404, "User not found");
+    }
     const product = await prisma.product.findUnique({
       where: { id: productId }
     });
@@ -188,7 +195,34 @@ const updateProduct = async (productId: string, payload:IupdateProduct) => {
   }
 };
 
+const deleteProduct = async (email:string,productId: string) => {
+  try {
+    const user = await prisma.user.findUnique({
+        where: { email }
+      });
+  
+      if (!user) {
+        throw new AppError(404, "User not found");
+      }
+    const product = await prisma.product.findUnique({
+      where: { id: productId }
+    });
+
+    if (!product) {
+      throw new Error("Product not found");
+    }
+
+    await prisma.product.delete({
+      where: { id: productId }
+    });
+
+    return { message: "Product deleted successfully" };
+  } catch (error) {
+    logger.error((error as Error).message || "Unknown error occurred while deleting product");
+    throw new AppError(400, (error as Error).message || "An error occurred while deleting product.");
+  }
+};
 
 
 
-  export const ProductServices={createProduct,getAllProducts,getSingleProduct,updateProduct}
+  export const ProductServices={createProduct,getAllProducts,getSingleProduct,updateProduct,deleteProduct}
